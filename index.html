@@ -308,6 +308,85 @@
         }
         .btn-submit:hover { box-shadow: 0 8px 30px rgba(0, 245, 212, 0.4); transform: translateY(-2px); }
 
+        /* Chat AI Section */
+        #chat { background: var(--bg-primary); }
+        .chat-container {
+            background: var(--bg-card); border-radius: 16px; border: 1px solid var(--border);
+            overflow: hidden; max-width: 800px; margin: 0 auto;
+        }
+        .chat-header {
+            display: flex; align-items: center; gap: 12px; padding: 20px 24px;
+            background: rgba(0, 245, 212, 0.05); border-bottom: 1px solid var(--border);
+        }
+        .chat-header-icon {
+            width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            background: var(--accent-gradient); color: #0a0a0f; font-size: 1.2rem;
+        }
+        .chat-header h3 { font-size: 1.1rem; }
+        .chat-header p { font-size: 0.8rem; color: var(--text-muted); }
+        .chat-status { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--accent); }
+        .chat-status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: blink 1.5s infinite; }
+        .chat-messages {
+            height: 420px; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 16px;
+            scroll-behavior: smooth;
+        }
+        .chat-messages::-webkit-scrollbar { width: 4px; }
+        .chat-messages::-webkit-scrollbar-track { background: transparent; }
+        .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        .chat-msg {
+            display: flex; gap: 12px; max-width: 85%; animation: msgIn 0.3s ease;
+        }
+        @keyframes msgIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .chat-msg.user { align-self: flex-end; flex-direction: row-reverse; }
+        .chat-msg-avatar {
+            width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            font-size: 0.8rem; flex-shrink: 0;
+        }
+        .chat-msg.bot .chat-msg-avatar { background: rgba(0, 245, 212, 0.15); color: var(--accent); }
+        .chat-msg.user .chat-msg-avatar { background: rgba(123, 97, 255, 0.15); color: var(--accent-2); }
+        .chat-msg-bubble {
+            padding: 12px 16px; border-radius: 12px; font-size: 0.9rem; line-height: 1.6;
+        }
+        .chat-msg.bot .chat-msg-bubble { background: var(--bg-secondary); border: 1px solid var(--border); color: var(--text-secondary); }
+        .chat-msg.user .chat-msg-bubble { background: rgba(123, 97, 255, 0.15); border: 1px solid rgba(123, 97, 255, 0.3); color: var(--text-primary); }
+        .chat-msg-bubble p { margin: 0; }
+        .chat-msg-bubble p + p { margin-top: 8px; }
+        .chat-typing { display: flex; gap: 4px; padding: 12px 16px; }
+        .chat-typing span {
+            width: 8px; height: 8px; border-radius: 50%; background: var(--text-muted);
+            animation: typingDot 1.4s infinite;
+        }
+        .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+        .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingDot { 0%, 60%, 100% { opacity: 0.3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-4px); } }
+        .chat-input-area {
+            display: flex; gap: 12px; padding: 16px 24px; border-top: 1px solid var(--border);
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .chat-input {
+            flex: 1; padding: 12px 16px; background: var(--bg-primary); border: 1px solid var(--border);
+            border-radius: 12px; color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 0.9rem;
+            outline: none; transition: border-color 0.3s;
+        }
+        .chat-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0, 245, 212, 0.1); }
+        .chat-input::placeholder { color: var(--text-muted); }
+        .chat-send {
+            width: 48px; height: 48px; border-radius: 12px; border: none;
+            background: var(--accent-gradient); color: #0a0a0f; font-size: 1.1rem;
+            cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center;
+        }
+        .chat-send:hover { box-shadow: 0 4px 20px rgba(0, 245, 212, 0.4); transform: translateY(-2px); }
+        .chat-send:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+        .chat-suggestions {
+            display: flex; flex-wrap: wrap; gap: 8px; padding: 0 24px 16px;
+        }
+        .chat-suggestion {
+            padding: 8px 14px; border-radius: 20px; font-size: 0.8rem; cursor: pointer;
+            background: rgba(123, 97, 255, 0.08); border: 1px solid rgba(123, 97, 255, 0.2);
+            color: var(--accent-2); transition: all 0.3s; font-family: 'JetBrains Mono', monospace;
+        }
+        .chat-suggestion:hover { background: rgba(123, 97, 255, 0.15); border-color: var(--accent-2); }
+
         /* Footer */
         footer {
             text-align: center; padding: 32px 24px; border-top: 1px solid var(--border);
@@ -352,6 +431,7 @@
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="#chat">AI Chat</a></li>
             </ul>
         </div>
     </nav>
@@ -485,7 +565,7 @@
                         <h3>Visualization & Tools</h3>
                     </div>
                     <div class="skill-tags">
-                        <span class="skill-tag">Tableau</span><span class="skill-tag">Looker Studio</span><span class="skill-tag">Metabase</span><span class="skill-tag">Git</span><span class="skill-tag">Microsoft Office</span>
+                        <span class="skill-tag>Tableau</span><span class="skill-tag">Looker Studio</span><span class="skill-tag">Metabase</span><span class="skill-tag">Git</span><span class="skill-tag">Microsoft Office</span>
                     </div>
                 </div>
             </div>
@@ -543,30 +623,7 @@
                     <div class="project-body">
                         <h3>Personal Health Records with LLMs</h3>
                         <p>AI-powered personal health record system using RAG (Retrieval-Augmented Generation) for intelligent health data querying and management.</p>
-                        <div class="project-tags"><span>Langchain</span><span>FastAPI</span><span>Vue.js</span><span>RAG</span></div>
-                        <div class="project-type"><i class="fas fa-flask"></i> Research Project</div>
-                    </div>
-                </div>
-                <div class="project-card fade-up">
-                    <div class="project-banner p2"><i class="fas fa-robot"></i></div>
-                    <div class="project-body">
-                        <h3>GenAI Web Applications</h3>
-                        <p>Web applications integrated with Generative AI (LLMs) for healthcare and marketing industries, including meeting summarization and voice transcription.</p>
-                        <div class="project-tags"><span>OpenAI</span><span>Langchain</span><span>FastAPI</span><span>Python</span></div>
-                        <div class="project-type"><i class="fas fa-building"></i> Enterprise Project</div>
-                    </div>
-                </div>
-                <div class="project-card fade-up">
-                    <div class="project-banner p3"><i class="fas fa-chart-line"></i></div>
-                    <div class="project-body">
-                        <h3>Forex Robot Trading + LSTM</h3>
-                        <p>Automated trading bot (EA) for MT4 platform combined with LSTM deep learning model for currency exchange rate prediction.</p>
-                        <div class="project-tags"><span>Python</span><span>LSTM</span><span>Keras</span><span>MT4</span></div>
-                        <div class="project-type"><i class="fas fa-user"></i> Personal Project</div>
-                    </div>
-                </div>
-                <div class="project-card fade-up">
-                    <div class="project-banner p4"><i class="fas fa-water"></i></div>
+                        <div class="project-tags"><span>Langchain</s"></i></div>
                     <div class="project-body">
                         <h3>IoT Water Quality Measurement</h3>
                         <p>IoT web application and embedded system for real-time water quality measurement and monitoring dashboard.</p>
@@ -612,6 +669,38 @@
                     <div class="form-group"><label>Message</label><textarea placeholder="Tell me about your project..."></textarea></div>
                     <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> Send Message</button>
                 </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="chat">
+        <div class="container">
+            <span class="section-label">AI Assistant</span>
+            <h2 class="section-title">Chat with <span class="gradient-text">My AI</span></h2>
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="chat-header-icon"><i class="fas fa-robot"></i></div>
+                    <div>
+                        <h3>Chadchavan's AI Assistant</h3>
+                        <div class="chat-status"><span class="chat-status-dot"></span> Online — Ask me anything about Chadchavan</div>
+                    </div>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="chat-msg bot">
+                        <div class="chat-msg-avatar"><i class="fas fa-robot"></i></div>
+                        <div class="chat-msg-bubble"><p>Hi! I'm Chadchavan's AI assistant. Ask me anything about his skills, experience, projects, or education. How can I help you?</p></div>
+                    </div>
+                </div>
+                <div class="chat-suggestions" id="chatSuggestions">
+                    <span class="chat-suggestion" onclick="askSuggestion(this)">What are his skills?</span>
+                    <span class="chat-suggestion" onclick="askSuggestion(this)">Tell me about his projects</span>
+                    <span class="chat-suggestion" onclick="askSuggestion(this)">Where did he work?</span>
+                    <span class="chat-suggestion" onclick="askSuggestion(this)">Education background?</span>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Ask about Chadchavan..." onkeypress="if(event.key==='Enter')sendChat()">
+                    <button class="chat-send" id="chatSendBtn" onclick="sendChat()"><i class="fas fa-paper-plane"></i></button>
+                </div>
             </div>
         </div>
     </section>
@@ -678,6 +767,164 @@
             btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
             btn.style.background = 'linear-gradient(135deg, #059669, #10b981)';
             setTimeout(() => { btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message'; btn.style.background = ''; e.target.reset(); }, 3000);
+        }
+
+        // ===== AI Chat Section =====
+        const OPENROUTER_API_KEY = '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';
+        const CHAT_MODEL = 'stepfun/step-3.5-flash:free';
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const chatSendBtn = document.getElementById('chatSendBtn');
+        const chatSuggestions = document.getElementById('chatSuggestions');
+
+        const SYSTEM_PROMPT = `You are Chadchavan Rattanasopa's AI assistant on his personal portfolio website. You answer questions ONLY about Chadchavan. If someone asks about anything unrelated to Chadchavan, politely redirect them.
+
+Here is Chadchavan's information:
+
+**Personal Info:**
+- Full Name: Chadchavan Rattanasopa (ชัชวาล รัตนโสภา)
+- Email: chad.rattanasopa@gmail.com
+- Phone: +66 80-394-8677
+- Location: Chiangmai / Bangkok, Thailand
+- LinkedIn: https://www.linkedin.com/in/chadchavan-rattanasopa-53982a13a/
+
+**Current Role:**
+- Senior AI/ML Software Engineer at Bon 8 Creative Co., Ltd. (December 2024 - Present)
+- Developing AI-powered applications and solutions
+
+**Work Experience:**
+1. Bon 8 Creative Co., Ltd. — Senior AI/ML Software Engineer (Dec 2024 - Present)
+   - Develop and deploy AI/ML models for production applications
+   - Build GenAI web apps and integrate LLM-based solutions
+
+2. Ascend Money — Senior International Data Management (Nov 2023 - Dec 2024)
+   - Managed international data pipelines and analytics
+   - Worked on data governance and quality across multiple countries
+
+3. Hengleasing — Data Engineer (May 2022 - Oct 2023)
+   - Built and maintained ETL/ELT data pipelines
+   - Designed data warehouse architecture
+   - Implemented data quality monitoring
+
+4. Praram 9 Hospital — Data Scientist (May 2021 - Feb 2022)
+   - Applied ML/AI to healthcare data
+   - Built predictive models for hospital operations
+
+**Education:**
+1. MSc Autonomous Robotics — University of Strathclyde, Glasgow, UK (2018-2019)
+2. BA Computer Engineering — Rajamangala University of Technology Lanna (RMUTL) (2011-2014)
+
+**Technical Skills:**
+- Languages: Python, SQL, JavaScript, PHP
+- AI/ML: Keras, Scikit-learn, TensorFlow, PyTorch
+- GenAI: Langchain, OpenAI API, RAG, LLM Integration
+- Web: FastAPI, Vue.js, React, Node.js
+- Cloud: Google Cloud Platform (GCP), AWS, Google BigQuery
+- Data Engineering: Apache Airflow, Jenkins, Docker
+- Visualization: Tableau, Power BI
+- Database: PostgreSQL, MySQL, MongoDB, BigQuery
+
+**Notable Projects:**
+1. Health Records with LLMs (RAG) — Used Retrieval-Augmented Generation to query and analyze health records with natural language
+2. GenAI Web Applications — Built multiple web apps powered by generative AI
+3. Forex Robot Trading + LSTM — Automated forex trading system using LSTM neural networks
+4. IoT Water Quality Monitoring — IoT system for real-time water quality monitoring and analysis
+
+**Awards:**
+- Bronze Medal — Super AI Engineer Season 3 (AIAT Thailand)
+
+Answer in the same language the user writes in. If they write in Thai, reply in Thai. If in English, reply in English. Be friendly, helpful, and concise.`;
+
+        let chatHistory = [
+            { role: 'system', content: SYSTEM_PROMPT }
+        ];
+
+        function addMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'chat-msg ' + sender;
+            const avatar = document.createElement('div');
+            avatar.className = 'chat-msg-avatar';
+            avatar.innerHTML = sender === 'bot' ? '<i class="fas fa-robot"></i>' : '<i class="fas fa-user"></i>';
+            const bubble = document.createElement('div');
+            bubble.className = 'chat-msg-bubble';
+            bubble.innerHTML = '<p>' + text.replace(/\n/g, '<br>') + '</p>';
+            msgDiv.appendChild(avatar);
+            msgDiv.appendChild(bubble);
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return msgDiv;
+        }
+
+        function showTyping() {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'chat-msg bot';
+            msgDiv.id = 'typingIndicator';
+            msgDiv.innerHTML = '<div class="chat-msg-avatar"><i class="fas fa-robot"></i></div><div class="chat-msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function removeTyping() {
+            const el = document.getElementById('typingIndicator');
+            if (el) el.remove();
+        }
+
+        async function sendChat() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            chatInput.value = '';
+            chatSuggestions.style.display = 'none';
+            chatSendBtn.disabled = true;
+            chatInput.disabled = true;
+
+            addMessage(text, 'user');
+            chatHistory.push({ role: 'user', content: text });
+
+            showTyping();
+
+            try {
+                const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + OPENROUTER_API_KEY,
+                        'Content-Type': 'application/json',
+                        'HTTP-Referer': window.location.href,
+                        'X-Title': 'Chadchavan Portfolio'
+                    },
+                    body: JSON.stringify({
+                        model: CHAT_MODEL,
+                        messages: chatHistory,
+                        max_tokens: 1024,
+                        temperature: 0.7
+                    })
+                });
+
+                const data = await response.json();
+                removeTyping();
+
+                if (data.choices && data.choices[0] && data.choices[0].message) {
+                    const reply = data.choices[0].message.content;
+                    chatHistory.push({ role: 'assistant', content: reply });
+                    addMessage(reply, 'bot');
+                } else if (data.error) {
+                    addMessage('Sorry, something went wrong: ' + (data.error.message || 'Unknown error'), 'bot');
+                } else {
+                    addMessage('Sorry, I could not get a response. Please try again.', 'bot');
+                }
+            } catch (err) {
+                removeTyping();
+                addMessage('Connection error. Please check your internet and try again.', 'bot');
+            }
+
+            chatSendBtn.disabled = false;
+            chatInput.disabled = false;
+            chatInput.focus();
+        }
+
+        function askSuggestion(el) {
+            chatInput.value = el.textContent;
+            sendChat();
         }
     </script>
 </body>

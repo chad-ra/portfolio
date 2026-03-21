@@ -769,75 +769,134 @@
             setTimeout(() => { btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message'; btn.style.background = ''; e.target.reset(); }, 3000);
         }
 
-        // ===== AI Chat Section =====
-        const OPENROUTER_API_KEY = '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';
-        const CHAT_MODEL = 'stepfun/step-3.5-flash:free';
+        // ===== AI Chat Section (Smart Local Chatbot) =====
         const chatMessages = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
         const chatSendBtn = document.getElementById('chatSendBtn');
         const chatSuggestions = document.getElementById('chatSuggestions');
 
-        const SYSTEM_PROMPT = `You are Chadchavan Rattanasopa's AI assistant on his personal portfolio website. You answer questions ONLY about Chadchavan. If someone asks about anything unrelated to Chadchavan, politely redirect them.
+        const cvData = {
+            name: 'Chadchavan Rattanasopa',
+            nameTh: 'ชัชวาล รัตนโสภา',
+            email: 'chad.rattanasopa@gmail.com',
+            phone: '+66 80-394-8677',
+            location: 'Chiangmai / Bangkok, Thailand',
+            linkedin: 'https://www.linkedin.com/in/chadchavan-rattanasopa-53982a13a/',
+            currentRole: 'Senior AI/ML Software Engineer at Bon 8 Creative Co., Ltd. (Dec 2024 - Present)',
+            experience: [
+                { company: 'Bon 8 Creative Co., Ltd.', role: 'Senior AI/ML Software Engineer', period: 'Dec 2024 - Present', desc: 'Develop and deploy AI/ML models for production. Build GenAI web apps and integrate LLM-based solutions.' },
+                { company: 'Ascend Money', role: 'Senior International Data Management', period: 'Nov 2023 - Dec 2024', desc: 'Managed international data pipelines and analytics. Worked on data governance and quality across multiple countries.' },
+                { company: 'Hengleasing', role: 'Data Engineer', period: 'May 2022 - Oct 2023', desc: 'Built and maintained ETL/ELT data pipelines. Designed data warehouse architecture and implemented data quality monitoring.' },
+                { company: 'Praram 9 Hospital', role: 'Data Scientist', period: 'May 2021 - Feb 2022', desc: 'Applied ML/AI to healthcare data. Built predictive models for hospital operations.' }
+            ],
+            education: [
+                { degree: 'MSc Autonomous Robotics', school: 'University of Strathclyde, Glasgow, UK', year: '2018-2019' },
+                { degree: 'BA Computer Engineering', school: 'Rajamangala University of Technology Lanna (RMUTL)', year: '2011-2014' }
+            ],
+            skills: {
+                languages: ['Python', 'SQL', 'JavaScript', 'PHP'],
+                aiml: ['Keras', 'Scikit-learn', 'TensorFlow', 'PyTorch'],
+                genai: ['Langchain', 'OpenAI API', 'RAG', 'LLM Integration'],
+                web: ['FastAPI', 'Vue.js', 'React', 'Node.js'],
+                cloud: ['Google Cloud Platform (GCP)', 'AWS', 'Google BigQuery'],
+                dataeng: ['Apache Airflow', 'Jenkins', 'Docker'],
+                viz: ['Tableau', 'Power BI'],
+                db: ['PostgreSQL', 'MySQL', 'MongoDB', 'BigQuery']
+            },
+            projects: [
+                { name: 'Health Records with LLMs (RAG)', desc: 'Used Retrieval-Augmented Generation to query and analyze health records with natural language.' },
+                { name: 'GenAI Web Applications', desc: 'Built multiple web apps powered by generative AI.' },
+                { name: 'Forex Robot Trading + LSTM', desc: 'Automated forex trading system using LSTM neural networks.' },
+                { name: 'IoT Water Quality Monitoring', desc: 'IoT system for real-time water quality monitoring and analysis.' }
+            ],
+            awards: 'Bronze Medal - Super AI Engineer Season 3 (AIAT Thailand)'
+        };
 
-Here is Chadchavan's information:
+        function detectThai(text) { return /[\u0E00-\u0E7F]/.test(text); }
 
-**Personal Info:**
-- Full Name: Chadchavan Rattanasopa (ชัชวาล รัตนโสภา)
-- Email: chad.rattanasopa@gmail.com
-- Phone: +66 80-394-8677
-- Location: Chiangmai / Bangkok, Thailand
-- LinkedIn: https://www.linkedin.com/in/chadchavan-rattanasopa-53982a13a/
+        function getResponse(input) {
+            const q = input.toLowerCase();
+            const th = detectThai(input);
 
-**Current Role:**
-- Senior AI/ML Software Engineer at Bon 8 Creative Co., Ltd. (December 2024 - Present)
-- Developing AI-powered applications and solutions
+            // Skills
+            if (q.match(/skill|ทักษะ|ความสามารถ|เก่ง|tech|stack|เทค/)) {
+                const allSkills = Object.values(cvData.skills).flat().join(', ');
+                return th
+                    ? `ทักษะหลักของ Chadchavan ครอบคลุมหลายด้าน:\n\n• Programming: ${cvData.skills.languages.join(', ')}\n• AI/ML: ${cvData.skills.aiml.join(', ')}\n• GenAI: ${cvData.skills.genai.join(', ')}\n• Web: ${cvData.skills.web.join(', ')}\n• Cloud: ${cvData.skills.cloud.join(', ')}\n• Data Engineering: ${cvData.skills.dataeng.join(', ')}\n• Visualization: ${cvData.skills.viz.join(', ')}\n• Database: ${cvData.skills.db.join(', ')}\n\nเขาเชี่ยวชาญทั้ง AI/ML, Full-Stack Development และ Data Engineering ครับ`
+                    : `Chadchavan has a diverse skill set:\n\n• Programming: ${cvData.skills.languages.join(', ')}\n• AI/ML: ${cvData.skills.aiml.join(', ')}\n• GenAI: ${cvData.skills.genai.join(', ')}\n• Web: ${cvData.skills.web.join(', ')}\n• Cloud: ${cvData.skills.cloud.join(', ')}\n• Data Engineering: ${cvData.skills.dataeng.join(', ')}\n• Visualization: ${cvData.skills.viz.join(', ')}\n• Database: ${cvData.skills.db.join(', ')}\n\nHe's proficient across AI/ML, Full-Stack Development, and Data Engineering!`;
+            }
 
-**Work Experience:**
-1. Bon 8 Creative Co., Ltd. — Senior AI/ML Software Engineer (Dec 2024 - Present)
-   - Develop and deploy AI/ML models for production applications
-   - Build GenAI web apps and integrate LLM-based solutions
+            // Experience / Work
+            if (q.match(/experience|work|job|ทำงาน|ประสบการณ์|บริษัท|company|career|อาชีพ|เคยทำ/)) {
+                const expList = cvData.experience.map(e => `• ${e.role} at ${e.company} (${e.period})\n  ${e.desc}`).join('\n\n');
+                return th
+                    ? `ประสบการณ์ทำงานของ Chadchavan:\n\n${expList}\n\nเขามีประสบการณ์กว่า 4 ปีในสาย Data & AI ครับ`
+                    : `Here's Chadchavan's work experience:\n\n${expList}\n\nHe has 4+ years of experience across Data Science, Data Engineering, and AI/ML.`;
+            }
 
-2. Ascend Money — Senior International Data Management (Nov 2023 - Dec 2024)
-   - Managed international data pipelines and analytics
-   - Worked on data governance and quality across multiple countries
+            // Projects
+            if (q.match(/project|โปรเจ|ผลงาน|portfolio|งาน/)) {
+                const projList = cvData.projects.map(p => `• ${p.name}: ${p.desc}`).join('\n');
+                return th
+                    ? `โปรเจกต์เด่นของ Chadchavan:\n\n${projList}\n\nเขาเน้นงาน AI/ML และ GenAI เป็นหลักครับ`
+                    : `Chadchavan's notable projects:\n\n${projList}\n\nHis work focuses on AI/ML and Generative AI applications.`;
+            }
 
-3. Hengleasing — Data Engineer (May 2022 - Oct 2023)
-   - Built and maintained ETL/ELT data pipelines
-   - Designed data warehouse architecture
-   - Implemented data quality monitoring
+            // Education
+            if (q.match(/educat|study|school|university|degree|การศึกษา|เรียน|มหาวิทยาลัย|จบ|ปริญญา/)) {
+                const eduList = cvData.education.map(e => `• ${e.degree} - ${e.school} (${e.year})`).join('\n');
+                return th
+                    ? `การศึกษาของ Chadchavan:\n\n${eduList}\n\nเขาจบปริญญาโทด้าน Autonomous Robotics จากสกอตแลนด์ครับ`
+                    : `Chadchavan's education:\n\n${eduList}\n\nHe holds a Master's degree in Autonomous Robotics from Scotland!`;
+            }
 
-4. Praram 9 Hospital — Data Scientist (May 2021 - Feb 2022)
-   - Applied ML/AI to healthcare data
-   - Built predictive models for hospital operations
+            // Contact
+            if (q.match(/contact|email|phone|ติดต่อ|อีเมล|โทร|เบอร์|linkedin|hire|จ้าง/)) {
+                return th
+                    ? `ช่องทางติดต่อ Chadchavan:\n\n• Email: ${cvData.email}\n• Phone: ${cvData.phone}\n• Location: ${cvData.location}\n• LinkedIn: ${cvData.linkedin}\n\nสามารถติดต่อได้เลยครับ!`
+                    : `You can reach Chadchavan through:\n\n• Email: ${cvData.email}\n• Phone: ${cvData.phone}\n• Location: ${cvData.location}\n• LinkedIn: ${cvData.linkedin}\n\nFeel free to get in touch!`;
+            }
 
-**Education:**
-1. MSc Autonomous Robotics — University of Strathclyde, Glasgow, UK (2018-2019)
-2. BA Computer Engineering — Rajamangala University of Technology Lanna (RMUTL) (2011-2014)
+            // Current role
+            if (q.match(/current|now|ตอนนี้|ปัจจุบัน|ทำอะไร|doing/)) {
+                return th
+                    ? `ปัจจุบัน Chadchavan ทำงานเป็น ${cvData.currentRole}\n\nเขาพัฒนา AI/ML models และสร้าง GenAI web applications ครับ`
+                    : `Chadchavan is currently working as ${cvData.currentRole}\n\nHe develops and deploys AI/ML models and builds GenAI web applications.`;
+            }
 
-**Technical Skills:**
-- Languages: Python, SQL, JavaScript, PHP
-- AI/ML: Keras, Scikit-learn, TensorFlow, PyTorch
-- GenAI: Langchain, OpenAI API, RAG, LLM Integration
-- Web: FastAPI, Vue.js, React, Node.js
-- Cloud: Google Cloud Platform (GCP), AWS, Google BigQuery
-- Data Engineering: Apache Airflow, Jenkins, Docker
-- Visualization: Tableau, Power BI
-- Database: PostgreSQL, MySQL, MongoDB, BigQuery
+            // Awards
+            if (q.match(/award|prize|รางวัล|achieve|medal|เหรียญ/)) {
+                return th
+                    ? `รางวัลของ Chadchavan:\n\n• ${cvData.awards}\n\nเป็นการแข่งขัน AI ระดับประเทศของไทยครับ`
+                    : `Chadchavan's achievements:\n\n• ${cvData.awards}\n\nThis is a national-level AI competition in Thailand!`;
+            }
 
-**Notable Projects:**
-1. Health Records with LLMs (RAG) — Used Retrieval-Augmented Generation to query and analyze health records with natural language
-2. GenAI Web Applications — Built multiple web apps powered by generative AI
-3. Forex Robot Trading + LSTM — Automated forex trading system using LSTM neural networks
-4. IoT Water Quality Monitoring — IoT system for real-time water quality monitoring and analysis
+            // Who is / about
+            if (q.match(/who|about|เกี่ยวกับ|ใคร|แนะนำ|tell me|introduce|คือใคร/)) {
+                return th
+                    ? `Chadchavan Rattanasopa (${cvData.nameTh}) เป็น Senior AI/ML Software Engineer ที่ Bon 8 Creative จ.เชียงใหม่/กรุงเทพ ประเทศไทย\n\nเขาจบ MSc Autonomous Robotics จาก University of Strathclyde ประเทศสกอตแลนด์ และมีประสบการณ์กว่า 4 ปี ในสาย Data Science, Data Engineering และ AI/ML\n\nเขาเคยได้รับรางวัลเหรียญทองแดงจากการแข่งขัน Super AI Engineer Season 3 ครับ`
+                    : `Chadchavan Rattanasopa is a Senior AI/ML Software Engineer at Bon 8 Creative, based in Chiangmai/Bangkok, Thailand.\n\nHe holds an MSc in Autonomous Robotics from the University of Strathclyde, Scotland, and has 4+ years of experience in Data Science, Data Engineering, and AI/ML.\n\nHe won a Bronze Medal at the Super AI Engineer Season 3 competition in Thailand.`;
+            }
 
-**Awards:**
-- Bronze Medal — Super AI Engineer Season 3 (AIAT Thailand)
+            // Hello / greetings
+            if (q.match(/^(hi|hello|hey|สวัสดี|หวัดดี|ดี|yo|sup)/)) {
+                return th
+                    ? `สวัสดีครับ! ผมเป็น AI Assistant ของ Chadchavan ยินดีตอบคำถามเกี่ยวกับทักษะ ประสบการณ์ โปรเจกต์ หรือการศึกษาของเขาครับ ถามได้เลย!`
+                    : `Hello! I'm Chadchavan's AI assistant. I'd be happy to answer questions about his skills, experience, projects, or education. What would you like to know?`;
+            }
 
-Answer in the same language the user writes in. If they write in Thai, reply in Thai. If in English, reply in English. Be friendly, helpful, and concise.`;
+            // Python / AI specific
+            if (q.match(/python|ai|machine learning|deep learning|ml/i)) {
+                return th
+                    ? `Chadchavan เชี่ยวชาญด้าน AI/ML มาก! เขาใช้ Python เป็นภาษาหลัก พร้อมกับ frameworks อย่าง TensorFlow, PyTorch, Keras และ Scikit-learn\n\nในด้าน GenAI เขาทำงานกับ Langchain, OpenAI API และ RAG systems\n\nปัจจุบันเขาสร้าง AI-powered web applications ที่ Bon 8 Creative ครับ`
+                    : `Chadchavan is highly skilled in AI/ML! He uses Python as his primary language along with frameworks like TensorFlow, PyTorch, Keras, and Scikit-learn.\n\nFor GenAI, he works with Langchain, OpenAI API, and RAG systems.\n\nCurrently, he builds AI-powered web applications at Bon 8 Creative.`;
+            }
 
-        let chatHistory = [
-            { role: 'system', content: SYSTEM_PROMPT }
-        ];
+            // Default / fallback
+            return th
+                ? `ขอบคุณสำหรับคำถามครับ! ผมสามารถตอบเกี่ยวกับ Chadchavan ได้ในหัวข้อต่อไปนี้:\n\n• ทักษะและเทคโนโลยี\n• ประสบการณ์ทำงาน\n• โปรเจกต์\n• การศึกษา\n• รางวัล\n• ช่องทางติดต่อ\n\nลองถามดูได้เลยครับ!`
+                : `Thanks for your question! I can help you learn about Chadchavan in these areas:\n\n• Skills & Technologies\n• Work Experience\n• Projects\n• Education\n• Awards\n• Contact Information\n\nFeel free to ask about any of these!`;
+        }
 
         function addMessage(text, sender) {
             const msgDiv = document.createElement('div');
@@ -879,43 +938,14 @@ Answer in the same language the user writes in. If they write in Thai, reply in 
             chatInput.disabled = true;
 
             addMessage(text, 'user');
-            chatHistory.push({ role: 'user', content: text });
-
             showTyping();
 
-            try {
-                const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': 'Bearer ' + OPENROUTER_API_KEY,
-                        'Content-Type': 'application/json',
-                        'HTTP-Referer': window.location.href,
-                        'X-Title': 'Chadchavan Portfolio'
-                    },
-                    body: JSON.stringify({
-                        model: CHAT_MODEL,
-                        messages: chatHistory,
-                        max_tokens: 1024,
-                        temperature: 0.7
-                    })
-                });
+            // Simulate typing delay for natural feel
+            await new Promise(r => setTimeout(r, 600 + Math.random() * 800));
 
-                const data = await response.json();
-                removeTyping();
-
-                if (data.choices && data.choices[0] && data.choices[0].message) {
-                    const reply = data.choices[0].message.content;
-                    chatHistory.push({ role: 'assistant', content: reply });
-                    addMessage(reply, 'bot');
-                } else if (data.error) {
-                    addMessage('Sorry, something went wrong: ' + (data.error.message || 'Unknown error'), 'bot');
-                } else {
-                    addMessage('Sorry, I could not get a response. Please try again.', 'bot');
-                }
-            } catch (err) {
-                removeTyping();
-                addMessage('Connection error. Please check your internet and try again.', 'bot');
-            }
+            removeTyping();
+            const reply = getResponse(text);
+            addMessage(reply, 'bot');
 
             chatSendBtn.disabled = false;
             chatInput.disabled = false;

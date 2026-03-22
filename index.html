@@ -143,7 +143,7 @@
             position: relative;
         }
         .section-label::before {
-            content: 'â';
+            content: '◆';
             position: absolute;
             left: -14px;
             color: var(--accent);
@@ -1016,7 +1016,7 @@
 
     <nav id="navbar">
         <div class="nav-inner">
-            <a href="#" class="logo">å Chadchavan</a>
+            <a href="#" class="logo">千 Chadchavan</a>
             <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#about">About</a></li>
@@ -1033,7 +1033,7 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text fade-up">
-                    <p class="greeting">ä¸æä¸ä¼</p>
+                    <p class="greeting">一期一会</p>
                     <h1>I'm <span class="name">Chadchavan</span><br><span class="name">Rattanasopa</span></h1>
                     <div class="typing-wrapper">
                         <span class="typing-text" id="typingText"></span><span class="cursor">|</span>
@@ -1050,7 +1050,7 @@
                             <path d="M 150 50 Q 220 80 230 150 Q 240 220 150 250 Q 80 260 70 150 Q 60 80 150 50"
                                   fill="none" stroke="#D4A017" stroke-width="3" stroke-linecap="round"/>
                         </svg>
-                        <div class="enso-text">å</div>
+                        <div class="enso-text">千</div>
                     </div>
                 </div>
             </div>
@@ -1285,7 +1285,7 @@
                     <div class="chat-header-icon"><i class="fas fa-brain"></i></div>
                     <div>
                         <h3>Chadchavan's AI Assistant</h3>
-                        <div class="chat-status"><span class="chat-status-dot"></span> Online â Ask me anything about Chadchavan</div>
+                        <div class="chat-status"><span class="chat-status-dot"></span> Online — Ask me anything about Chadchavan</div>
                     </div>
                 </div>
                 <div class="chat-messages" id="chatMessages">
@@ -1309,7 +1309,7 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 Chadchavan Rattanasopa. Built with <span class="heart">&hearts;</span> and clean code. ç¦</p>
+        <p>&copy; 2026 Chadchavan Rattanasopa. Built with <span class="heart">&hearts;</span> and clean code. 禅</p>
     </footer>
 
     <script>
@@ -1381,7 +1381,7 @@
 
         const cvData = {
             name: 'Chadchavan Rattanasopa',
-            nameTh: 'à¸à¸±à¸à¸§à¸²à¸¥ à¸£à¸±à¸à¸à¹à¸ªà¸ à¸²',
+            nameTh: 'ชัชวาล รัตนโสภา',
             email: 'chad.rattanasopa@gmail.com',
             phone: '+66 80-394-8677',
             location: 'Chiangmai / Bangkok, Thailand',
@@ -1423,83 +1423,83 @@
             const th = detectThai(input);
 
             // Skills
-            if (q.match(/skill|à¸à¸±à¸à¸©à¸°|à¸à¸§à¸²à¸¡à¸ªà¸²à¸¡à¸²à¸£à¸|à¹à¸à¹à¸|tech|stack|à¹à¸à¸/)) {
+            if (q.match(/skill|ทักษะ|ความสามารถ|เก่ง|tech|stack|เทค/)) {
                 const allSkills = Object.values(cvData.skills).flat().join(', ');
                 return th
-                    ? `à¸à¸±à¸à¸©à¸°à¸«à¸¥à¸±à¸à¸à¸­à¸ Chadchavan à¸à¸£à¸­à¸à¸à¸¥à¸¸à¸¡à¸«à¸¥à¸²à¸¢à¸à¹à¸²à¸:\n\nâ¢ Programming: ${cvData.skills.languages.join(', ')}\nâ¢ AI/ML: ${cvData.skills.aiml.join(', ')}\nâ¢ GenAI: ${cvData.skills.genai.join(', ')}\nâ¢ Web: ${cvData.skills.web.join(', ')}\nâ¢ Cloud: ${cvData.skills.cloud.join(', ')}\nâ¢ Data Engineering: ${cvData.skills.dataeng.join(', ')}\nâ¢ Visualization: ${cvData.skills.viz.join(', ')}\nâ¢ Database: ${cvData.skills.db.join(', ')}\n\nà¹à¸à¸²à¹à¸à¸µà¹à¸¢à¸§à¸à¸²à¸à¸à¸±à¹à¸ AI/ML, Full-Stack Development à¹à¸¥à¸° Data Engineering à¸à¸£à¸±à¸`
-                    : `Chadchavan has a diverse skill set:\n\nâ¢ Programming: ${cvData.skills.languages.join(', ')}\nâ¢ AI/ML: ${cvData.skills.aiml.join(', ')}\nâ¢ GenAI: ${cvData.skills.genai.join(', ')}\nâ¢ Web: ${cvData.skills.web.join(', ')}\nâ¢ Cloud: ${cvData.skills.cloud.join(', ')}\nâ¢ Data Engineering: ${cvData.skills.dataeng.join(', ')}\nâ¢ Visualization: ${cvData.skills.viz.join(', ')}\nâ¢ Database: ${cvData.skills.db.join(', ')}\n\nHe's proficient across AI/ML, Full-Stack Development, and Data Engineering!`;
+                    ? `ทักษะหลักของ Chadchavan ครอบคลุมหลายด้าน:\n\n• Programming: ${cvData.skills.languages.join(', ')}\n• AI/ML: ${cvData.skills.aiml.join(', ')}\n• GenAI: ${cvData.skills.genai.join(', ')}\n• Web: ${cvData.skills.web.join(', ')}\n• Cloud: ${cvData.skills.cloud.join(', ')}\n• Data Engineering: ${cvData.skills.dataeng.join(', ')}\n• Visualization: ${cvData.skills.viz.join(', ')}\n• Database: ${cvData.skills.db.join(', ')}\n\nเขาเชี่ยวชาญทั้ง AI/ML, Full-Stack Development และ Data Engineering ครับ`
+                    : `Chadchavan has a diverse skill set:\n\n• Programming: ${cvData.skills.languages.join(', ')}\n• AI/ML: ${cvData.skills.aiml.join(', ')}\n• GenAI: ${cvData.skills.genai.join(', ')}\n• Web: ${cvData.skills.web.join(', ')}\n• Cloud: ${cvData.skills.cloud.join(', ')}\n• Data Engineering: ${cvData.skills.dataeng.join(', ')}\n• Visualization: ${cvData.skills.viz.join(', ')}\n• Database: ${cvData.skills.db.join(', ')}\n\nHe's proficient across AI/ML, Full-Stack Development, and Data Engineering!`;
             }
 
             // Experience / Work
-            if (q.match(/experience|work|job|à¸à¸³à¸à¸²à¸|à¸à¸£à¸°à¸ªà¸à¸à¸²à¸£à¸à¹|à¸à¸£à¸´à¸©à¸±à¸|company|career|à¸­à¸²à¸à¸µà¸|à¹à¸à¸¢à¸à¸³/)) {
-                const expList = cvData.experience.map(e => `â¢ ${e.role} at ${e.company} (${e.period})\n  ${e.desc}`).join('\n\n');
+            if (q.match(/experience|work|job|ทำงาน|ประสบการณ์|บริษัท|company|career|อาชีพ|เคยทำ/)) {
+                const expList = cvData.experience.map(e => `• ${e.role} at ${e.company} (${e.period})\n  ${e.desc}`).join('\n\n');
                 return th
-                    ? `à¸à¸£à¸°à¸ªà¸à¸à¸²à¸£à¸à¹à¸à¸³à¸à¸²à¸à¸à¸­à¸ Chadchavan:\n\n${expList}\n\nà¹à¸à¸²à¸¡à¸µà¸à¸£à¸°à¸ªà¸à¸à¸²à¸£à¸à¹à¸à¸§à¹à¸² 4 à¸à¸µà¹à¸à¸ªà¸²à¸¢ Data & AI à¸à¸£à¸±à¸`
+                    ? `ประสบการณ์ทำงานของ Chadchavan:\n\n${expList}\n\nเขามีประสบการณ์กว่า 4 ปีในสาย Data & AI ครับ`
                     : `Here's Chadchavan's work experience:\n\n${expList}\n\nHe has 4+ years of experience across Data Science, Data Engineering, and AI/ML.`;
             }
 
             // Projects
-            if (q.match(/project|à¹à¸à¸£à¹à¸|à¸à¸¥à¸à¸²à¸|portfolio|à¸à¸²à¸/)) {
-                const projList = cvData.projects.map(p => `â¢ ${p.name}: ${p.desc}`).join('\n');
+            if (q.match(/project|โปรเจ|ผลงาน|portfolio|งาน/)) {
+                const projList = cvData.projects.map(p => `• ${p.name}: ${p.desc}`).join('\n');
                 return th
-                    ? `à¹à¸à¸£à¹à¸à¸à¸à¹à¹à¸à¹à¸à¸à¸­à¸ Chadchavan:\n\n${projList}\n\nà¹à¸à¸²à¹à¸à¹à¸à¸à¸²à¸ AI/ML à¹à¸¥à¸° GenAI à¹à¸à¹à¸à¸«à¸¥à¸±à¸à¸à¸£à¸±à¸`
+                    ? `โปรเจกต์เด่นของ Chadchavan:\n\n${projList}\n\nเขาเน้นงาน AI/ML และ GenAI เป็นหลักครับ`
                     : `Chadchavan's notable projects:\n\n${projList}\n\nHis work focuses on AI/ML and Generative AI applications.`;
             }
 
             // Education
-            if (q.match(/educat|study|school|university|degree|à¸à¸²à¸£à¸¨à¸¶à¸à¸©à¸²|à¹à¸£à¸µà¸¢à¸|à¸¡à¸«à¸²à¸§à¸´à¸à¸¢à¸²à¸¥à¸±à¸¢|à¸à¸|à¸à¸£à¸´à¸à¸à¸²/)) {
-                const eduList = cvData.education.map(e => `â¢ ${e.degree} - ${e.school} (${e.year})`).join('\n');
+            if (q.match(/educat|study|school|university|degree|การศึกษา|เรียน|มหาวิทยาลัย|จบ|ปริญญา/)) {
+                const eduList = cvData.education.map(e => `• ${e.degree} - ${e.school} (${e.year})`).join('\n');
                 return th
-                    ? `à¸à¸²à¸£à¸¨à¸¶à¸à¸©à¸²à¸à¸­à¸ Chadchavan:\n\n${eduList}\n\nà¹à¸à¸²à¸à¸à¸à¸£à¸´à¸à¸à¸²à¹à¸à¸à¹à¸²à¸ Autonomous Robotics à¸à¸²à¸à¸ªà¸à¸­à¸à¹à¸¥à¸à¸à¹à¸à¸£à¸±à¸`
+                    ? `การศึกษาของ Chadchavan:\n\n${eduList}\n\nเขาจบปริญญาโทด้าน Autonomous Robotics จากสกอตแลนด์ครับ`
                     : `Chadchavan's education:\n\n${eduList}\n\nHe holds a Master's degree in Autonomous Robotics from Scotland!`;
             }
 
             // Contact
-            if (q.match(/contact|email|phone|à¸à¸´à¸à¸à¹à¸­|à¸­à¸µà¹à¸¡à¸¥|à¹à¸à¸£|à¹à¸à¸­à¸£à¹|linkedin|hire|à¸à¹à¸²à¸/)) {
+            if (q.match(/contact|email|phone|ติดต่อ|อีเมล|โทร|เบอร์|linkedin|hire|จ้าง/)) {
                 return th
-                    ? `à¸à¹à¸­à¸à¸à¸²à¸à¸à¸´à¸à¸à¹à¸­ Chadchavan:\n\nâ¢ Email: ${cvData.email}\nâ¢ Phone: ${cvData.phone}\nâ¢ Location: ${cvData.location}\nâ¢ LinkedIn: ${cvData.linkedin}\n\nà¸ªà¸²à¸¡à¸²à¸£à¸à¸à¸´à¸à¸à¹à¸­à¹à¸à¹à¹à¸¥à¸¢à¸à¸£à¸±à¸!`
-                    : `You can reach Chadchavan through:\n\nâ¢ Email: ${cvData.email}\nâ¢ Phone: ${cvData.phone}\nâ¢ Location: ${cvData.location}\nâ¢ LinkedIn: ${cvData.linkedin}\n\nFeel free to get in touch!`;
+                    ? `ช่องทางติดต่อ Chadchavan:\n\n• Email: ${cvData.email}\n• Phone: ${cvData.phone}\n• Location: ${cvData.location}\n• LinkedIn: ${cvData.linkedin}\n\nสามารถติดต่อได้เลยครับ!`
+                    : `You can reach Chadchavan through:\n\n• Email: ${cvData.email}\n• Phone: ${cvData.phone}\n• Location: ${cvData.location}\n• LinkedIn: ${cvData.linkedin}\n\nFeel free to get in touch!`;
             }
 
             // Current role
-            if (q.match(/current|now|à¸à¸­à¸à¸à¸µà¹|à¸à¸±à¸à¸à¸¸à¸à¸±à¸|à¸à¸³à¸­à¸°à¹à¸£|doing/)) {
+            if (q.match(/current|now|ตอนนี้|ปัจจุบัน|ทำอะไร|doing/)) {
                 return th
-                    ? `à¸à¸±à¸à¸à¸¸à¸à¸±à¸ Chadchavan à¸à¸³à¸à¸²à¸à¹à¸à¹à¸ ${cvData.currentRole}\n\nà¹à¸à¸²à¸à¸±à¸à¸à¸² AI/ML models à¹à¸¥à¸°à¸ªà¸£à¹à¸²à¸ GenAI web applications à¸à¸£à¸±à¸`
+                    ? `ปัจจุบัน Chadchavan ทำงานเป็น ${cvData.currentRole}\n\nเขาพัฒนา AI/ML models และสร้าง GenAI web applications ครับ`
                     : `Chadchavan is currently working as ${cvData.currentRole}\n\nHe develops and deploys AI/ML models and builds GenAI web applications.`;
             }
 
             // Awards
-            if (q.match(/award|prize|à¸£à¸²à¸à¸§à¸±à¸¥|achieve|medal|à¹à¸«à¸£à¸µà¸¢à¸/)) {
+            if (q.match(/award|prize|รางวัล|achieve|medal|เหรียญ/)) {
                 return th
-                    ? `à¸£à¸²à¸à¸§à¸±à¸¥à¸à¸­à¸ Chadchavan:\n\nâ¢ ${cvData.awards}\n\nà¹à¸à¹à¸à¸à¸²à¸£à¹à¸à¹à¸à¸à¸±à¸ AI à¸£à¸°à¸à¸±à¸à¸à¸£à¸°à¹à¸à¸¨à¸à¸­à¸à¹à¸à¸¢à¸à¸£à¸±à¸`
-                    : `Chadchavan's achievements:\n\nâ¢ ${cvData.awards}\n\nThis is a national-level AI competition in Thailand!`;
+                    ? `รางวัลของ Chadchavan:\n\n• ${cvData.awards}\n\nเป็นการแข่งขัน AI ระดับประเทศของไทยครับ`
+                    : `Chadchavan's achievements:\n\n• ${cvData.awards}\n\nThis is a national-level AI competition in Thailand!`;
             }
 
             // Who is / about
-            if (q.match(/who|about|à¹à¸à¸µà¹à¸¢à¸§à¸à¸±à¸|à¹à¸à¸£|à¹à¸à¸°à¸à¸³|tell me|introduce|à¸à¸·à¸­à¹à¸à¸£/)) {
+            if (q.match(/who|about|เกี่ยวกับ|ใคร|แนะนำ|tell me|introduce|คือใคร/)) {
                 return th
-                    ? `Chadchavan Rattanasopa (${cvData.nameTh}) à¹à¸à¹à¸ Senior AI/ML Software Engineer à¸à¸µà¹ Bon 8 Creative à¸.à¹à¸à¸µà¸¢à¸à¹à¸«à¸¡à¹/à¸à¸£à¸¸à¸à¹à¸à¸ à¸à¸£à¸°à¹à¸à¸¨à¹à¸à¸¢\n\nà¹à¸à¸²à¸à¸ MSc Autonomous Robotics à¸à¸²à¸ University of Strathclyde à¸à¸£à¸°à¹à¸à¸¨à¸ªà¸à¸­à¸à¹à¸¥à¸à¸à¹ à¹à¸¥à¸°à¸¡à¸µà¸à¸£à¸°à¸ªà¸à¸à¸²à¸£à¸à¹à¸à¸§à¹à¸² 4 à¸à¸µ à¹à¸à¸ªà¸²à¸¢ Data Science, Data Engineering à¹à¸¥à¸° AI/ML\n\nà¹à¸à¸²à¹à¸à¸¢à¹à¸à¹à¸£à¸±à¸à¸£à¸²à¸à¸§à¸±à¸¥à¹à¸«à¸£à¸µà¸¢à¸à¸à¸­à¸à¹à¸à¸à¸à¸²à¸à¸à¸²à¸£à¹à¸à¹à¸à¸à¸±à¸ Super AI Engineer Season 3 à¸à¸£à¸±à¸`
+                    ? `Chadchavan Rattanasopa (${cvData.nameTh}) เป็น Senior AI/ML Software Engineer ที่ Bon 8 Creative จ.เชียงใหม่/กรุงเทพ ประเทศไทย\n\nเขาจบ MSc Autonomous Robotics จาก University of Strathclyde ประเทศสกอตแลนด์ และมีประสบการณ์กว่า 4 ปี ในสาย Data Science, Data Engineering และ AI/ML\n\nเขาเคยได้รับรางวัลเหรียญทองแดงจากการแข่งขัน Super AI Engineer Season 3 ครับ`
                     : `Chadchavan Rattanasopa is a Senior AI/ML Software Engineer at Bon 8 Creative, based in Chiangmai/Bangkok, Thailand.\n\nHe holds an MSc in Autonomous Robotics from the University of Strathclyde, Scotland, and has 4+ years of experience in Data Science, Data Engineering, and AI/ML.\n\nHe won a Bronze Medal at the Super AI Engineer Season 3 competition in Thailand.`;
             }
 
             // Hello / greetings
-            if (q.match(/^(hi|hello|hey|à¸ªà¸§à¸±à¸ªà¸à¸µ|à¸«à¸§à¸±à¸à¸à¸µ|à¸à¸µ|yo|sup)/)) {
+            if (q.match(/^(hi|hello|hey|สวัสดี|หวัดดี|ดี|yo|sup)/)) {
                 return th
-                    ? `à¸ªà¸§à¸±à¸ªà¸à¸µà¸à¸£à¸±à¸! à¸à¸¡à¹à¸à¹à¸ AI Assistant à¸à¸­à¸ Chadchavan à¸¢à¸´à¸à¸à¸µà¸à¸­à¸à¸à¸³à¸à¸²à¸¡à¹à¸à¸µà¹à¸¢à¸§à¸à¸±à¸à¸à¸±à¸à¸©à¸° à¸à¸£à¸°à¸ªà¸à¸à¸²à¸£à¸à¹ à¹à¸à¸£à¹à¸à¸à¸à¹ à¸«à¸£à¸·à¸­à¸à¸²à¸£à¸¨à¸¶à¸à¸©à¸²à¸à¸­à¸à¹à¸à¸²à¸à¸£à¸±à¸ à¸à¸²à¸¡à¹à¸à¹à¹à¸¥à¸¢!`
+                    ? `สวัสดีครับ! ผมเป็น AI Assistant ของ Chadchavan ยินดีตอบคำถามเกี่ยวกับทักษะ ประสบการณ์ โปรเจคต์ หรือการศึกษาของเขาครับ ถามได้เลย!`
                     : `Hello! I'm Chadchavan's AI assistant. I'd be happy to answer questions about his skills, experience, projects, or education. What would you like to know?`;
             }
 
             // Python / AI specific
             if (q.match(/python|ai|machine learning|deep learning|ml/i)) {
                 return th
-                    ? `Chadchavan à¹à¸à¸µà¹à¸¢à¸§à¸à¸²à¸à¸à¹à¸²à¸ AI/ML à¸¡à¸²à¸! à¹à¸à¸²à¹à¸à¹ Python à¹à¸à¹à¸à¸ à¸²à¸©à¸²à¸«à¸¥à¸±à¸ à¸à¸£à¹à¸­à¸¡à¸à¸±à¸ frameworks à¸­à¸¢à¹à¸²à¸ TensorFlow, PyTorch, Keras à¹à¸¥à¸° Scikit-learn\n\nà¹à¸à¸à¹à¸²à¸ GenAI à¹à¸à¸²à¸à¸³à¸à¸²à¸à¸à¸±à¸ Langchain, OpenAI API à¹à¸¥à¸° RAG systems\n\nà¸à¸±à¸à¸à¸¸à¸à¸±à¸à¹à¸à¸²à¸ªà¸£à¹à¸²à¸ AI-powered web applications à¸à¸µà¹ Bon 8 Creative à¸à¸£à¸±à¸`
+                    ? `Chadchavan เชี่ยวชาญด้าน AI/ML มาก! เขาใช้ Python เป็นภาษาหลัก พร้อมกับ frameworks อย่าง TensorFlow, PyTorch, Keras และ Scikit-learn\n\nในด้าน GenAI เขาทำงานกับ Langchain, OpenAI API และ RAG systems\n\nปัจจุบันเขาสร้าง AI-powered web applications ที่ Bon 8 Creative ครับ`
                     : `Chadchavan is highly skilled in AI/ML! He uses Python as his primary language along with frameworks like TensorFlow, PyTorch, Keras, and Scikit-learn.\n\nFor GenAI, he works with Langchain, OpenAI API, and RAG systems.\n\nCurrently, he builds AI-powered web applications at Bon 8 Creative.`;
             }
 
             // Default / fallback
             return th
-                ? `à¸à¸­à¸à¸à¸¸à¸à¸ªà¸³à¸«à¸£à¸±à¸à¸à¸³à¸à¸²à¸¡à¸à¸£à¸±à¸! à¸à¸¡à¸ªà¸²à¸¡à¸²à¸£à¸à¸à¸­à¸à¹à¸à¸µà¹à¸¢à¸§à¸à¸±à¸ Chadchavan à¹à¸à¹à¹à¸à¸«à¸±à¸§à¸à¹à¸­à¸à¹à¸­à¹à¸à¸à¸µà¹:\n\nâ¢ à¸à¸±à¸à¸©à¸°à¹à¸¥à¸°à¹à¸à¸à¹à¸à¹à¸¥à¸¢à¸µ\nâ¢ à¸à¸£à¸°à¸ªà¸à¸à¸²à¸£à¸à¹à¸à¸³à¸à¸²à¸\nâ¢ à¹à¸à¸£à¹à¸à¸à¸à¹\nâ¢ à¸à¸²à¸£à¸¨à¸¶à¸à¸©à¸²\nâ¢ à¸£à¸²à¸à¸§à¸±à¸¥\nâ¢ à¸à¹à¸­à¸à¸à¸²à¸à¸à¸´à¸à¸à¹à¸­\n\nà¸¥à¸­à¸à¸à¸²à¸¡à¸à¸¹à¹à¸à¹à¹à¸¥à¸¢à¸à¸£à¸±à¸!`
-                : `Thanks for your question! I can help you learn about Chadchavan in these areas:\n\nâ¢ Skills & Technologies\nâ¢ Work Experience\nâ¢ Projects\nâ¢ Education\nâ¢ Awards\nâ¢ Contact Information\n\nFeel free to ask about any of these!`;
+                ? `ขอบคุณสำหรับคำถามครับ! ผมสามารถตอบเกี่ยวกับ Chadchavan ได้ในหัวข้อต่อไปนี้:\n\n• ทักษะและเทคโนโลยี\n• ประสบการณ์ทำงาน\n• โปรเจคตํ\n• การศึกษา\n• รางวัล\n• ช่องทางติดต่อ\n\nลองถามดูได้เลยครับ!`
+                : `Thanks for your question! I can help you learn about Chadchavan in these areas:\n\n• Skills & Technologies\n• Work Experience\n• Projects\n• Education\n• Awards\n• Contact Information\n\nFeel free to ask about any of these!`;
         }
 
         function addMessage(text, sender) {

@@ -4,1381 +4,1059 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chadchavan Rattanasopa - AI/ML Software Engineer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700;900&family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --bg-primary: #FAF7F0;
-            --bg-secondary: #EDE8DE;
-            --bg-card: #FFFFFF;
-            --text-primary: #2D2D2D;
-            --text-secondary: #6B6B6B;
-            --text-muted: #9B9B9B;
-            --accent: #D4A017;
-            --accent-alt: #C8A951;
-            --border: #DDD5C5;
-            --charcoal: #2D2D2D;
+            --bg-main: #FFFFFF;
+            --bg-sidebar: #F3F3F3;
+            --bg-actbar: #2C2C2C;
+            --bg-titlebar: #DDDDDD;
+            --bg-tab-active: #FFFFFF;
+            --bg-tab-inactive: #ECECEC;
+            --bg-statusbar: #007ACC;
+            --bg-editor: #FFFFFF;
+            --bg-terminal: #1E1E1E;
+            --text-primary: #333333;
+            --text-secondary: #616161;
+            --text-muted: #999999;
+            --text-sidebar: #333333;
+            --accent: #C96442;
+            --accent2: #007ACC;
+            --border: #E0E0E0;
+            --highlight: #E8E8E8;
+            --tree-indent: 16px;
+            --orange: #C96442;
+            --green: #6A9955;
+            --blue: #007ACC;
+            --yellow: #B8860B;
         }
-        html { scroll-behavior: smooth; }
+        html, body { height: 100%; overflow: hidden; }
         body {
-            font-family: 'Noto Sans JP', sans-serif;
-            background: var(--bg-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-main);
             color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Subtle washi paper texture background (CSS only) */
-        .bg-texture {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            background:
-                repeating-linear-gradient(
-                    90deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(141, 135, 121, 0.02) 2px,
-                    rgba(141, 135, 121, 0.02) 4px
-                ),
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(141, 135, 121, 0.02) 2px,
-                    rgba(141, 135, 121, 0.02) 4px
-                );
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(250, 247, 240, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-            transition: all 0.3s;
-        }
-        nav.scrolled { box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08); }
-        .nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
+        /* === TITLE BAR === */
+        .titlebar {
+            height: 30px;
+            background: var(--bg-titlebar);
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            height: 64px;
-        }
-        .logo {
-            font-family: 'Noto Serif JP', serif;
-            font-weight: 700;
-            font-size: 1.25rem;
-            color: var(--accent);
-            text-decoration: none;
-            letter-spacing: 2px;
-        }
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            list-style: none;
-        }
-        .nav-links a {
-            text-decoration: none;
+            padding: 0 12px;
+            font-size: 12px;
             color: var(--text-secondary);
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-            position: relative;
+            flex-shrink: 0;
+            gap: 8px;
+            -webkit-app-region: drag;
         }
-        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s;
+        .traffic-lights {
+            display: flex;
+            gap: 8px;
+            align-items: center;
         }
-        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-        .hamburger {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--text-primary);
-            cursor: pointer;
+        .traffic-light {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+        }
+        .tl-red { background: #FF5F57; }
+        .tl-yellow { background: #FFBD2E; }
+        .tl-green { background: #28C840; }
+        .titlebar-text {
+            flex: 1;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
         }
 
-        /* Sections */
-        section {
-            padding: 120px 24px;
-            position: relative;
-            z-index: 1;
+        /* === MAIN LAYOUT === */
+        .ide-container {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+
+        /* === ACTIVITY BAR === */
+        .activity-bar {
+            width: 48px;
+            background: var(--bg-actbar);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 4px;
+            flex-shrink: 0;
         }
-        .section-label {
-            font-family: 'Noto Serif JP', serif;
-            display: inline-block;
-            font-size: 0.75rem;
+        .act-icon {
+            width: 48px; height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 22px;
+            cursor: pointer;
+            border-left: 2px solid transparent;
+            transition: all 0.15s;
+        }
+        .act-icon:hover { color: rgba(255,255,255,0.85); }
+        .act-icon.active {
+            color: #FFFFFF;
+            border-left-color: #FFFFFF;
+        }
+        .act-spacer { flex: 1; }
+
+        /* === SIDEBAR === */
+        .sidebar {
+            width: 260px;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .sidebar-header {
+            padding: 10px 16px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--text-secondary);
+        }
+        .file-tree {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 20px;
+            font-size: 13px;
+        }
+        .tree-item {
+            display: flex;
+            align-items: center;
+            padding: 3px 8px 3px 0;
+            cursor: pointer;
+            color: var(--text-sidebar);
+            user-select: none;
+            white-space: nowrap;
+            transition: background 0.1s;
+        }
+        .tree-item:hover { background: var(--highlight); }
+        .tree-item.active { background: #D6EBFF; }
+        .tree-item .indent { display: inline-block; width: var(--tree-indent); flex-shrink: 0; }
+        .tree-item .icon {
+            width: 20px;
+            text-align: center;
+            margin-right: 4px;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .tree-item .icon.folder { color: #C09553; }
+        .tree-item .icon.file-md { color: var(--accent); }
+        .tree-item .icon.file-json { color: #B8860B; }
+        .tree-item .icon.file-ts { color: #3178C6; }
+        .tree-item .icon.file-py { color: #3572A5; }
+        .tree-item .icon.file-yml { color: #CB171E; }
+        .tree-item .icon.file-html { color: #E34C26; }
+        .tree-item .chevron {
+            width: 16px;
+            text-align: center;
+            font-size: 10px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+            transition: transform 0.15s;
+        }
+        .tree-item .chevron.open { transform: rotate(90deg); }
+        .tree-children { display: none; }
+        .tree-children.open { display: block; }
+        .tree-item .fname { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+
+        /* === EDITOR AREA === */
+        .editor-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        /* Tabs */
+        .tab-bar {
+            display: flex;
+            background: var(--bg-tab-inactive);
+            border-bottom: 1px solid var(--border);
+            height: 35px;
+            flex-shrink: 0;
+            overflow-x: auto;
+        }
+        .tab-bar::-webkit-scrollbar { height: 0; }
+        .tab {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0 16px;
+            height: 100%;
+            font-size: 13px;
+            cursor: pointer;
+            border-right: 1px solid var(--border);
+            color: var(--text-secondary);
+            background: var(--bg-tab-inactive);
+            white-space: nowrap;
+            user-select: none;
+            transition: background 0.1s;
+            min-width: 0;
+        }
+        .tab:hover { background: #E8E8E8; }
+        .tab.active {
+            background: var(--bg-tab-active);
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--bg-tab-active);
+            margin-bottom: -1px;
+        }
+        .tab .tab-icon { font-size: 14px; }
+        .tab .tab-close {
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.15s;
+            border-radius: 3px;
+            width: 18px; height: 18px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .tab:hover .tab-close, .tab.active .tab-close { opacity: 0.5; }
+        .tab .tab-close:hover { opacity: 1; background: rgba(0,0,0,0.1); }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 4px 16px;
+            font-size: 12px;
+            color: var(--text-muted);
+            background: var(--bg-editor);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+        .breadcrumb span { color: var(--text-secondary); }
+        .breadcrumb .sep { color: var(--text-muted); }
+
+        /* Editor Content */
+        .editor-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px 48px 80px;
+            background: var(--bg-editor);
+            line-height: 1.75;
+        }
+
+        /* Markdown-style rendering */
+        .md-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .md-title .emoji { font-size: 32px; }
+        .md-title-sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+        .md-section {
+            margin-bottom: 32px;
+            display: none;
+        }
+        .md-section.active { display: block; }
+        .md-h2 {
+            font-size: 14px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-bottom: 12px;
-            padding: 8px 12px;
-            border: 2px solid var(--accent);
+            letter-spacing: 2px;
             color: var(--accent);
-            background: white;
-            position: relative;
-        }
-        .section-label::before {
-            content: '◆';
-            position: absolute;
-            left: -14px;
-            color: var(--accent);
-        }
-        .section-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 48px;
-            color: var(--text-primary);
-            font-family: 'Noto Serif JP', serif;
-        }
-
-        /* Hero */
-        #hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: 64px;
-        }
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-        .hero-text .greeting {
-            font-family: 'Noto Serif JP', serif;
-            font-size: 1.1rem;
-            color: var(--accent);
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-        .hero-text h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 8px;
-            font-family: 'Noto Serif JP', serif;
-        }
-        .hero-text h1 .name {
-            color: var(--accent);
-        }
-        .hero-text .tagline {
-            font-size: 1.3rem;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-            font-weight: 400;
-        }
-        .hero-text p {
-            color: var(--text-secondary);
-            font-size: 1.05rem;
-            margin-bottom: 32px;
-            max-width: 500px;
-            line-height: 1.7;
-        }
-
-        /* Typing effect */
-        .typing-wrapper {
-            display: inline-flex;
-            align-items: center;
-        }
-        .typing-text {
-            font-family: 'Noto Sans JP', sans-serif;
-            color: var(--accent);
-            font-size: 1.3rem;
-            font-weight: 500;
-        }
-        .cursor {
+            margin: 32px 0 16px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid var(--accent);
             display: inline-block;
-            width: 2px;
-            height: 1.4em;
-            background: var(--accent);
-            margin-left: 4px;
-            animation: none;
         }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 28px;
-            border-radius: 0;
+        .md-h3 {
+            font-size: 16px;
             font-weight: 600;
-            font-size: 0.95rem;
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: none;
-            font-family: 'Noto Sans JP', sans-serif;
-        }
-        .btn-primary {
-            background: var(--accent);
-            color: white;
-            border: 2px solid var(--accent);
-        }
-        .btn-primary:hover {
-            background: white;
-            color: var(--accent);
-            border-color: var(--accent);
-        }
-        .btn-outline {
-            background: transparent;
             color: var(--text-primary);
-            border: 2px solid var(--border);
+            margin: 20px 0 8px;
         }
-        .btn-outline:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        /* Enso circle SVG */
-        .hero-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .enso-container {
-            width: 400px;
-            height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: white;
-            border: 2px solid var(--border);
-            position: relative;
-        }
-        .enso-svg {
-            width: 300px;
-            height: 300px;
-        }
-        .enso-text {
-            position: absolute;
-            font-family: 'Noto Serif JP', serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--accent);
-            text-align: center;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        /* About */
-        #about {
-            background: var(--bg-secondary);
-        }
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: start;
-        }
-        .about-text p {
+        .md-p {
+            font-size: 14px;
             color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+        .md-list {
+            list-style: none;
             margin-bottom: 16px;
-            font-size: 1.05rem;
-            line-height: 1.7;
         }
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 32px;
-        }
-        .stat {
-            text-align: center;
-            padding: 24px;
-            background: white;
-            border: 2px solid var(--border);
-            transition: all 0.3s;
-        }
-        .stat:hover {
-            border-color: var(--accent);
-        }
-        .stat-number {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--accent);
-            font-family: 'Noto Serif JP', serif;
-        }
-        .stat-label {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-top: 4px;
-        }
-
-        .highlight-cards {
+        .md-list li {
+            font-size: 14px;
+            padding: 4px 0;
+            color: var(--text-secondary);
             display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .highlight-card {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            padding: 20px;
-            background: white;
-            border-left: 4px solid var(--accent);
-            transition: all 0.3s;
-        }
-        .highlight-card:hover {
-            border-left-color: var(--accent);
-            background: #FEFDFB;
-        }
-        .highlight-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            flex-shrink: 0;
-            color: var(--accent);
-        }
-        .highlight-card h4 {
-            font-size: 1rem;
-            margin-bottom: 4px;
-            color: var(--text-primary);
-            font-family: 'Noto Serif JP', serif;
-            font-weight: 700;
-        }
-        .highlight-card p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        /* Skills */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-        }
-        .skill-card {
-            padding: 32px;
-            background: white;
-            border: 2px solid var(--border);
-            border-top: 4px solid var(--accent);
-            transition: all 0.3s;
-            position: relative;
-        }
-        .skill-card:hover {
-            border-color: var(--accent);
-        }
-        .skill-card-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        .skill-card-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            background: white;
-            color: var(--accent);
-            flex-shrink: 0;
-        }
-        .skill-card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            font-family: 'Noto Serif JP', serif;
-        }
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
+            align-items: baseline;
             gap: 8px;
         }
-        .skill-tag {
-            padding: 6px 14px;
-            border-radius: 0;
-            font-size: 0.8rem;
-            font-weight: 500;
-            background: white;
+        .md-list li::before {
+            content: '›';
             color: var(--accent);
-            border: 1px solid var(--accent);
-            transition: all 0.3s;
-            font-family: 'JetBrains Mono', monospace;
-        }
-        .skill-tag:hover {
-            background: var(--accent);
-            color: white;
-        }
-
-        /* Experience */
-        #experience {
-            background: var(--bg-secondary);
-        }
-        .timeline {
-            position: relative;
-        }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 24px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--accent);
-        }
-        .timeline-item {
-            position: relative;
-            padding-left: 72px;
-            margin-bottom: 40px;
-        }
-        .timeline-item:last-child {
-            margin-bottom: 0;
-        }
-        .timeline-dot {
-            position: absolute;
-            left: 12px;
-            top: 24px;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: var(--accent);
-            z-index: 1;
-        }
-        .timeline-card {
-            padding: 28px;
-            background: white;
-            border: 2px solid var(--border);
-            transition: all 0.3s;
-        }
-        .timeline-card:hover {
-            border-color: var(--accent);
-        }
-        .timeline-card h3 {
-            font-size: 1.15rem;
-            margin-bottom: 6px;
-            font-family: 'Noto Serif JP', serif;
             font-weight: 700;
-        }
-        .timeline-card .company {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--accent);
-            margin-bottom: 12px;
-        }
-        .timeline-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* Projects */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-        }
-        .project-card {
-            background: white;
-            border: 2px solid var(--border);
-            overflow: hidden;
-            transition: all 0.3s;
-            position: relative;
-        }
-        .project-card:hover {
-            border-color: var(--accent);
-        }
-        .project-banner {
-            height: 180px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            position: relative;
-            overflow: hidden;
-        }
-        .project-banner.p1 { background: #F0E6D2; }
-        .project-banner.p2 { background: #E8DCC5; }
-        .project-banner.p3 { background: #F5EAD9; }
-        .project-banner.p4 { background: #EBE0CF; }
-        .project-banner i {
-            position: relative;
-            z-index: 1;
-            color: var(--accent);
-        }
-        .project-body {
-            padding: 24px;
-        }
-        .project-body h3 {
-            font-size: 1.15rem;
-            margin-bottom: 10px;
-            font-family: 'Noto Serif JP', serif;
-            font-weight: 700;
-        }
-        .project-body p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 16px;
-            line-height: 1.6;
-           }
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-        .project-tags span {
-            padding: 4px 10px;
-            border-radius: 0;
-            font-size: 0.75rem;
-            font-family: 'JetBrains Mono', monospace;
-            background: white;
-            color: var(--accent);
-            border: 1px solid var(--accent);
-        }
-        .project-type {
-            font-size: 0.8rem;
-            color: var(--accent);
-            font-weight: 600;
-        }
-        .project-type i {
-            margin-right: 4px;
-        }
-
-        /* Contact */
-        #contact {
-            background: var(--bg-secondary);
-        }
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-        }
-        .contact-info h3 {
-            font-size: 1.4rem;
-            margin-bottom: 16px;
-            font-family: 'Noto Serif JP', serif;
-            font-weight: 700;
-        }
-        .contact-info > p {
-            color: var(--text-muted);
-            margin-bottom: 32px;
-            line-height: 1.7;
-        }
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 20px;
-            padding: 16px;
-            background: white;
-            border: 2px solid var(--border);
-            transition: all 0.3s;
-        }
-        .contact-item:hover {
-            border-color: var(--accent);
-        }
-        .contact-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: white;
-            color: var(--accent);
-            font-size: 1.1rem;
+            font-size: 16px;
             flex-shrink: 0;
         }
-        .contact-item h4 {
-            font-size: 0.9rem;
-            color: var(--text-primary);
-            font-family: 'Noto Serif JP', serif;
-            font-weight: 700;
+        .md-code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #F5F5F5;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 12.5px;
+            color: #C96442;
         }
-        .contact-item p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-        .social-links {
-            display: flex;
-            gap: 12px;
-            margin-top: 24px;
-        }
-        .social-link {
-            width: 44px;
-            height: 44px;
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: white;
-            border: 2px solid var(--border);
-            color: var(--text-secondary);
+        .md-link {
+            color: var(--accent2);
             text-decoration: none;
-            transition: all 0.3s;
-            font-size: 1.1rem;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
         }
-        .social-link:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        /* Contact form */
-        .contact-form {
-            background: white;
-            padding: 32px;
-            border: 2px solid var(--border);
-        }
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-        .form-group {
-            margin-bottom: 16px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-            font-weight: 500;
-            font-family: 'Noto Serif JP', serif;
-        }
-        .form-group input, .form-group textarea {
+        .md-link:hover { border-bottom-color: var(--accent2); }
+        .md-table {
             width: 100%;
-            padding: 12px 16px;
-            background: white;
-            border: 2px solid var(--border);
-            border-radius: 0;
+            border-collapse: collapse;
+            margin: 12px 0 20px;
+            font-size: 13.5px;
+        }
+        .md-table th {
+            text-align: left;
+            padding: 10px 16px;
+            background: #F7F7F7;
+            border: 1px solid var(--border);
+            font-weight: 600;
             color: var(--text-primary);
-            font-family: 'Noto Sans JP', sans-serif;
-            font-size: 0.9rem;
-            transition: border-color 0.3s;
-            outline: none;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .form-group input:focus, .form-group textarea:focus {
-            border-color: var(--accent);
-        }
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-        .form-group input::placeholder, .form-group textarea::placeholder {
-            color: var(--text-muted);
-        }
-        .btn-submit {
-            width: 100%;
-            padding: 14px;
-            background: var(--accent);
-            color: white;
-            border: 2px solid var(--accent);
-            border-radius: 0;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Noto Serif JP', serif;
-        }
-        .btn-submit:hover {
-            background: white;
-            color: var(--accent);
-        }
-
-        /* Chat AI Section */
-        #chat {
-            background: var(--bg-primary);
-        }
-        .chat-container {
-            background: white;
-            border: 2px solid var(--border);
-            overflow: hidden;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .chat-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 20px 24px;
-            background: var(--bg-secondary);
-            border-bottom: 2px solid var(--border);
-        }
-        .chat-header-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--accent);
-            color: white;
-            font-size: 1.2rem;
-        }
-        .chat-header h3 {
-            font-size: 1.1rem;
-            font-family: 'Noto Serif JP', serif;
-            font-weight: 700;
-        }
-        .chat-header p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-        .chat-status {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.75rem;
-            color: var(--accent);
-        }
-        .chat-status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--accent);
-            animation: blink 1.5s infinite;
-        }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-        .chat-messages {
-            height: 420px;
-            overflow-y: auto;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            scroll-behavior: smooth;
-        }
-        .chat-messages::-webkit-scrollbar {
-            width: 4px;
-        }
-        .chat-messages::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .chat-messages::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 4px;
-        }
-        .chat-msg {
-            display: flex;
-            gap: 12px;
-            max-width: 85%;
-            animation: msgIn 0.3s ease;
-        }
-        @keyframes msgIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .chat-msg.user {
-            align-self: flex-end;
-            flex-direction: row-reverse;
-        }
-        .chat-msg-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            flex-shrink: 0;
-        }
-        .chat-msg.bot .chat-msg-avatar {
-            background: var(--bg-secondary);
-            color: var(--accent);
-        }
-        .chat-msg.user .chat-msg-avatar {
-            background: var(--accent);
-            color: white;
-        }
-        .chat-msg-bubble {
-            padding: 12px 16px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-        .chat-msg.bot .chat-msg-bubble {
-            background: var(--bg-secondary);
+        .md-table td {
+            padding: 10px 16px;
             border: 1px solid var(--border);
             color: var(--text-secondary);
         }
-        .chat-msg.user .chat-msg-bubble {
-            background: var(--accent);
-            border: 1px solid var(--accent);
-            color: white;
+        .md-table tr:hover td { background: #FAFAFA; }
+        .md-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            margin: 3px 4px 3px 0;
+            border: 1px solid var(--border);
+            background: #F9F9F9;
+            color: var(--text-secondary);
         }
-        .chat-msg-bubble p {
-            margin: 0;
+        .md-badge.accent { border-color: var(--accent); color: var(--accent); background: #FFF8F5; }
+        .md-badge.blue { border-color: #3178C6; color: #3178C6; background: #F0F7FF; }
+        .md-badge.green { border-color: #28A745; color: #28A745; background: #F0FFF4; }
+        .md-badge.yellow { border-color: #B8860B; color: #B8860B; background: #FFFDF0; }
+        .md-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 24px 0;
         }
-        .chat-msg-bubble p + p {
-            margin-top: 8px;
+        .md-blockquote {
+            border-left: 3px solid var(--accent);
+            padding: 8px 16px;
+            margin: 12px 0;
+            background: #FFF8F5;
+            font-style: italic;
+            font-size: 14px;
+            color: var(--text-secondary);
         }
-        .chat-typing {
-            display: flex;
-            gap: 4px;
-            padding: 12px 16px;
+
+        /* Project cards */
+        .project-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 12px 0;
         }
-        .chat-typing span {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--text-muted);
-            animation: typingDot 1.4s infinite;
+        .project-card {
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 16px;
+            background: #FAFAFA;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
-        .chat-typing span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-        .chat-typing span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-        @keyframes typingDot {
-            0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
-            30% { opacity: 1; transform: translateY(-4px); }
-        }
-        .chat-input-area {
-            display: flex;
-            gap: 12px;
-            padding: 16px 24px;
-            border-top: 2px solid var(--border);
-            background: var(--bg-primary);
-        }
-        .chat-input {
-            flex: 1;
-            padding: 12px 16px;
-            background: white;
-            border: 2px solid var(--border);
-            border-radius: 0;
-            color: var(--text-primary);
-            font-family: 'Noto Sans JP', sans-serif;
-            font-size: 0.9rem;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        .chat-input:focus {
+        .project-card:hover {
             border-color: var(--accent);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
-        .chat-input::placeholder {
-            color: var(--text-muted);
+        .project-card h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-primary);
         }
-        .chat-send {
-            width: 48px;
-            height: 48px;
-            border-radius: 0;
-            border: 2px solid var(--accent);
+        .project-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .project-card .tags { margin-top: 10px; }
+
+        /* Timeline */
+        .timeline-item {
+            position: relative;
+            padding-left: 24px;
+            padding-bottom: 24px;
+            border-left: 2px solid var(--border);
+            margin-left: 8px;
+        }
+        .timeline-item:last-child { border-left-color: transparent; }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px; top: 4px;
+            width: 10px; height: 10px;
+            border-radius: 50%;
             background: var(--accent);
-            color: white;
-            font-size: 1.1rem;
+            border: 2px solid white;
+        }
+        .timeline-role {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .timeline-company {
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 500;
+        }
+        .timeline-period {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            margin: 2px 0 4px;
+        }
+        .timeline-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* === TERMINAL / CHAT === */
+        .terminal-panel {
+            height: 220px;
+            background: var(--bg-terminal);
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+        .terminal-tabs {
+            display: flex;
+            background: #252526;
+            height: 30px;
+            align-items: center;
+            padding: 0 8px;
+            gap: 2px;
+        }
+        .terminal-tab {
+            padding: 4px 12px;
+            font-size: 12px;
+            color: #999;
             cursor: pointer;
-            transition: all 0.3s;
+            border-radius: 3px 3px 0 0;
+        }
+        .terminal-tab.active {
+            color: #FFF;
+            background: var(--bg-terminal);
+        }
+        .terminal-tab i { margin-right: 4px; }
+        .terminal-body {
+            flex: 1;
+            padding: 8px 12px;
+            overflow-y: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: #D4D4D4;
+        }
+        .terminal-body::-webkit-scrollbar { width: 8px; }
+        .terminal-body::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+        .term-line { margin-bottom: 2px; white-space: pre-wrap; word-break: break-word; }
+        .term-prompt { color: #6A9955; }
+        .term-cmd { color: #DCDCAA; }
+        .term-output { color: #D4D4D4; }
+        .term-info { color: #569CD6; }
+        .term-accent { color: #CE9178; }
+        .terminal-input-area {
             display: flex;
             align-items: center;
-            justify-content: center;
-        }
-        .chat-send:hover {
-            background: white;
-            color: var(--accent);
-        }
-        .chat-send:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .chat-suggestions {
-            display: flex;
-            flex-wrap: wrap;
+            padding: 6px 12px;
+            background: #1E1E1E;
+            border-top: 1px solid #333;
             gap: 8px;
-            padding: 0 24px 16px;
         }
-        .chat-suggestion {
-            padding: 8px 14px;
-            border-radius: 0;
-            font-size: 0.8rem;
-            cursor: pointer;
-            background: white;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            transition: all 0.3s;
+        .terminal-input-area .prompt-symbol {
+            color: #6A9955;
             font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            flex-shrink: 0;
         }
-        .chat-suggestion:hover {
-            background: var(--accent);
-            color: white;
+        .terminal-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #D4D4D4;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            outline: none;
         }
+        .terminal-send {
+            background: none;
+            border: none;
+            color: #6A9955;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .terminal-send:hover { color: #89D185; }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 32px 24px;
-            border-top: 2px solid var(--border);
-            color: var(--text-muted);
-            font-size: 0.85rem;
+        /* === STATUS BAR === */
+        .statusbar {
+            height: 22px;
+            background: var(--bg-statusbar);
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            font-size: 12px;
+            color: #FFFFFF;
+            flex-shrink: 0;
+            gap: 16px;
+        }
+        .statusbar .left, .statusbar .right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .statusbar .right { margin-left: auto; }
+        .statusbar i { font-size: 12px; margin-right: 4px; }
+        .status-item { display: flex; align-items: center; gap: 4px; opacity: 0.9; }
+
+        /* === MINIMAP === */
+        .minimap {
+            width: 60px;
+            background: #FAFAFA;
+            border-left: 1px solid var(--border);
+            flex-shrink: 0;
             position: relative;
-            z-index: 1;
+            overflow: hidden;
         }
-        footer .heart {
-            color: var(--accent);
+        .minimap-content {
+            transform: scale(0.15);
+            transform-origin: top right;
+            position: absolute;
+            right: 0; top: 0;
+            width: 400px;
+            opacity: 0.5;
         }
 
-        /* Responsive */
+        /* === MOBILE === */
         @media (max-width: 768px) {
-            .hamburger {
-                display: block;
-            }
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 64px;
-                left: 0;
-                right: 0;
-                flex-direction: column;
-                background: rgba(250, 247, 240, 0.98);
-                padding: 20px;
-                gap: 16px;
-                border-bottom: 2px solid var(--border);
-                backdrop-filter: blur(20px);
-            }
-            .nav-links.open {
-                display: flex;
-            }
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-            .hero-text p {
-                margin: 0 auto 32px;
-            }
-            .hero-buttons {
-                justify-content: center;
-            }
-            .enso-container {
-                width: 100%;
-                max-width: 400px;
-                margin: 0 auto;
-            }
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-            .stats {
-                grid-template-columns: repeat(3, 1fr);
-            }
+            .titlebar { display: none; }
+            .activity-bar { width: 40px; }
+            .act-icon { width: 40px; height: 40px; font-size: 18px; }
+            .sidebar { width: 200px; display: none; }
+            .sidebar.mobile-open { display: flex; position: absolute; z-index: 100; height: 100%; }
+            .minimap { display: none; }
+            .editor-content { padding: 20px 16px 60px; }
+            .project-cards { grid-template-columns: 1fr; }
+            .terminal-panel { height: 180px; }
         }
-
-        /* Animations */
-        .fade-up {
-            opacity: 1;
-            transform: none;
+        @media (max-width: 480px) {
+            .activity-bar { display: none; }
+            .tab-bar { height: 32px; }
+            .tab { padding: 0 10px; font-size: 12px; }
         }
     </style>
 </head>
 <body>
-    <div class="bg-texture"></div>
-
-    <nav id="navbar">
-        <div class="nav-inner">
-            <a href="#" class="logo">千 Chadchavan</a>
-            <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#chat">AI Chat</a></li>
-            </ul>
+    <!-- Title Bar -->
+    <div class="titlebar">
+        <div class="traffic-lights">
+            <div class="traffic-light tl-red"></div>
+            <div class="traffic-light tl-yellow"></div>
+            <div class="traffic-light tl-green"></div>
         </div>
-    </nav>
+        <div class="titlebar-text">PORTFOLIO.md — chadchavan_portfolio</div>
+    </div>
 
-    <section id="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text fade-up">
-                    <p class="greeting">一期一会</p>
-                    <h1>I'm <span class="name">Chadchavan</span><br><span class="name">Rattanasopa</span></h1>
-                    <div class="typing-wrapper">
-                        <span class="typing-text" id="typingText"></span><span class="cursor">|</span>
-                    </div>
-                    <p style="margin-top: 20px;">AI Full-Stack Developer with expertise in building web applications integrated with machine learning. Experienced across healthcare and digital marketing industries with a passion for scalable, intelligent applications.</p>
-                    <div class="hero-buttons">
-                        <a href="#projects" class="btn btn-primary"><i class="fas fa-rocket"></i> View Projects</a>
-                        <a href="#contact" class="btn btn-outline"><i class="fas fa-envelope"></i> Get in Touch</a>
-                    </div>
-                </div>
-                <div class="hero-visual fade-up">
-                    <div class="enso-container">
-                        <svg class="enso-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M 150 50 Q 220 80 230 150 Q 240 220 150 250 Q 80 260 70 150 Q 60 80 150 50"
-                                  fill="none" stroke="#D4A017" stroke-width="3" stroke-linecap="round"/>
-                        </svg>
-                        <div class="enso-text">千</div>
-                    </div>
-                </div>
-            </div>
+    <div class="ide-container">
+        <!-- Activity Bar -->
+        <div class="activity-bar">
+            <div class="act-icon active" title="Explorer" onclick="toggleSidebar()"><i class="fas fa-copy"></i></div>
+            <div class="act-icon" title="Search"><i class="fas fa-search"></i></div>
+            <div class="act-icon" title="Source Control"><i class="fas fa-code-branch"></i></div>
+            <div class="act-icon" title="Extensions"><i class="fas fa-puzzle-piece"></i></div>
+            <div class="act-spacer"></div>
+            <div class="act-icon" title="GitHub" onclick="window.open('https://github.com/chad-ra','_blank')"><i class="fab fa-github"></i></div>
+            <div class="act-icon" title="LinkedIn" onclick="window.open('https://www.linkedin.com/in/chadchavan-rattanasopa-53982a13a/','_blank')"><i class="fab fa-linkedin"></i></div>
+            <div class="act-icon" title="Settings"><i class="fas fa-cog"></i></div>
         </div>
-    </section>
 
-    <section id="about">
-        <div class="container">
-            <span class="section-label">About Me</span>
-            <h2 class="section-title">Who I <span style="color: var(--accent);">Am</span></h2>
-            <div class="about-grid">
-                <div class="about-text fade-up">
-                    <p>AI Full-Stack Developer with expertise in building web applications integrated with machine learning. Experienced in applying both classical ML models and modern approaches like deep learning and generative AI across healthcare (public and private hospitals) and the digital marketing industry.</p>
-                    <p>Strong knowledge of data engineering and management, enabling seamless data pipelines and efficient AI-driven solutions. Passionate about developing scalable, intelligent applications while continuously exploring emerging technologies.</p>
-                    <div class="stats">
-                        <div class="stat">
-                            <div class="stat-number">5+</div>
-                            <div class="stat-label">Years Exp.</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">10+</div>
-                            <div class="stat-label">Projects</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">2</div>
-                            <div class="stat-label">Degrees</div>
+        <!-- Sidebar / File Explorer -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">Explorer</div>
+            <div class="file-tree" id="fileTree">
+                <!-- Folder: chadchavan_portfolio -->
+                <div class="tree-item" onclick="toggleFolder(this)" style="font-weight:600;">
+                    <span class="chevron open">&#9654;</span>
+                    <span class="icon folder"><i class="fas fa-folder-open"></i></span>
+                    <span class="fname">chadchavan_portfolio</span>
+                </div>
+                <div class="tree-children open" id="root-folder">
+                    <!-- PORTFOLIO.md -->
+                    <div class="tree-item active" data-tab="portfolio" onclick="openTab('portfolio',this)">
+                        <span class="indent"></span>
+                        <span class="icon file-md"><i class="fas fa-file-alt"></i></span>
+                        <span class="fname">PORTFOLIO.md</span>
+                    </div>
+
+                    <!-- Folder: experience -->
+                    <div class="tree-item" onclick="toggleFolder(this)">
+                        <span class="indent"></span>
+                        <span class="chevron">&#9654;</span>
+                        <span class="icon folder"><i class="fas fa-folder"></i></span>
+                        <span class="fname">experience</span>
+                    </div>
+                    <div class="tree-children">
+                        <div class="tree-item" data-tab="experience" onclick="openTab('experience',this)">
+                            <span class="indent"></span><span class="indent"></span>
+                            <span class="icon file-md"><i class="fas fa-file-alt"></i></span>
+                            <span class="fname">CAREER.md</span>
                         </div>
                     </div>
-                </div>
-                <div class="highlight-cards fade-up">
-                    <div class="highlight-card">
-                        <div class="highlight-icon"><i class="fas fa-brain"></i></div>
-                        <div>
-                            <h4>AI/ML Engineer</h4>
-                            <p>Building intelligent applications with deep learning, generative AI, and LLMs integration.</p>
+
+                    <!-- Folder: skills -->
+                    <div class="tree-item" onclick="toggleFolder(this)">
+                        <span class="indent"></span>
+                        <span class="chevron">&#9654;</span>
+                        <span class="icon folder"><i class="fas fa-folder"></i></span>
+                        <span class="fname">skills</span>
+                    </div>
+                    <div class="tree-children">
+                        <div class="tree-item" data-tab="skills" onclick="openTab('skills',this)">
+                            <span class="indent"></span><span class="indent"></span>
+                            <span class="icon file-json"><i class="fas fa-file-code"></i></span>
+                            <span class="fname">stack.json</span>
                         </div>
                     </div>
-                    <div class="highlight-card">
-                        <div class="highlight-icon"><i class="fas fa-graduation-cap"></i></div>
-                        <div>
-                            <h4>MSc. Autonomous Robotics</h4>
-                            <p>Strathclyde University, Glasgow, UK (2018-2019). BA Computer Engineering, RMUTL (2011-2014).</p>
+
+                    <!-- Folder: projects -->
+                    <div class="tree-item" onclick="toggleFolder(this)">
+                        <span class="indent"></span>
+                        <span class="chevron">&#9654;</span>
+                        <span class="icon folder"><i class="fas fa-folder"></i></span>
+                        <span class="fname">projects</span>
+                    </div>
+                    <div class="tree-children">
+                        <div class="tree-item" data-tab="projects" onclick="openTab('projects',this)">
+                            <span class="indent"></span><span class="indent"></span>
+                            <span class="icon file-md"><i class="fas fa-file-alt"></i></span>
+                            <span class="fname">README.md</span>
                         </div>
                     </div>
-                    <div class="highlight-card">
-                        <div class="highlight-icon"><i class="fas fa-trophy"></i></div>
-                        <div>
-                            <h4>Bronze Medal - Super AI Engineer</h4>
-                            <p>Awarded by AIAT Thailand for excellence in AI engineering.</p>
+
+                    <!-- Folder: education -->
+                    <div class="tree-item" onclick="toggleFolder(this)">
+                        <span class="indent"></span>
+                        <span class="chevron">&#9654;</span>
+                        <span class="icon folder"><i class="fas fa-folder"></i></span>
+                        <span class="fname">education</span>
+                    </div>
+                    <div class="tree-children">
+                        <div class="tree-item" data-tab="education" onclick="openTab('education',this)">
+                            <span class="indent"></span><span class="indent"></span>
+                            <span class="icon file-md"><i class="fas fa-file-alt"></i></span>
+                            <span class="fname">degrees.md</span>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="skills">
-        <div class="container">
-            <span class="section-label">My Skills</span>
-            <h2 class="section-title">Tech <span style="color: var(--accent);">Stack</span></h2>
-            <div class="skills-grid">
-                <div class="skill-card fade-up">
-                    <div class="skill-card-header">
-                        <div class="skill-card-icon"><i class="fas fa-code"></i></div>
-                        <h3>Programming</h3>
+                    <!-- contact.yml -->
+                    <div class="tree-item" data-tab="contact" onclick="openTab('contact',this)">
+                        <span class="indent"></span>
+                        <span class="icon file-yml"><i class="fas fa-file-code"></i></span>
+                        <span class="fname">contact.yml</span>
                     </div>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Python</span><span class="skill-tag">SQL</span><span class="skill-tag">JavaScript</span><span class="skill-tag">PHP</span><span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">Linux CLI</span>
+
+                    <!-- .env -->
+                    <div class="tree-item" style="color:var(--text-muted);">
+                        <span class="indent"></span>
+                        <span class="icon" style="color:#999;"><i class="fas fa-lock"></i></span>
+                        <span class="fname">.env</span>
                     </div>
-                </div>
-                <div class="skill-card fade-up">
-                    <div class="skill-card-header">
-                        <div class="skill-card-icon"><i class="fas fa-robot"></i></div>
-                        <h3>AI/ML & Full-Stack</h3>
-                    </div>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Keras</span><span class="skill-tag">Scikit-learn</span><span class="skill-tag">Langchain</span><span class="skill-tag">OpenAI</span><span class="skill-tag">FastAPI</span><span class="skill-tag">Vue.js</span><span class="skill-tag">React</span><span class="skill-tag">LINE LIFF</span>
-                    </div>
-                </div>
-                <div class="skill-card fade-up">
-                    <div class="skill-card-header">
-                        <div class="skill-card-icon"><i class="fas fa-database"></i></div>
-                        <h3>Data Engineering & Cloud</h3>
-                    </div>
-                    <div class="skill-tags">
-                        <span class="skill-tag">GBQ</span><span class="skill-tag">GCP</span><span class="skill-tag">AWS Elastic Beanstalk</span><span class="skill-tag">Pentaho</span><span class="skill-tag">Airflow</span><span class="skill-tag">Jenkins</span><span class="skill-tag">MySQL</span><span class="skill-tag">CouchDB</span>
-                    </div>
-                </div>
-                <div class="skill-card fade-up">
-                    <div class="skill-card-header">
-                        <div class="skill-card-icon"><i class="fas fa-chart-bar"></i></div>
-                        <h3>Visualization & Tools</h3>
-                    </div>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Tableau</span><span class="skill-tag">Looker Studio</span><span class="skill-tag">Metabase</span><span class="skill-tag">Git</span><span class="skill-tag">Microsoft Office</span>
+
+                    <!-- README.md -->
+                    <div class="tree-item" data-tab="portfolio" onclick="openTab('portfolio',this)">
+                        <span class="indent"></span>
+                        <span class="icon file-md"><i class="fas fa-file-alt"></i></span>
+                        <span class="fname">README.md</span>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <section id="experience">
-        <div class="container">
-            <span class="section-label">Career Path</span>
-            <h2 class="section-title">Work <span style="color: var(--accent);">Experience</span></h2>
-            <div class="timeline">
-                <div class="timeline-item fade-up">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <h3>Senior AI/ML Software Engineer</h3>
-                        <div class="company">Bon 8 Creative, Chiangmai | Dec 2024 - Present</div>
-                        <p>Full stack AI Application Development in healthcare and marketing. Data engineering, pipeline optimization, ETL processes, and PII governance compliance.</p>
-                    </div>
+        <!-- Editor Area -->
+        <div class="editor-area">
+            <!-- Tabs -->
+            <div class="tab-bar" id="tabBar">
+                <div class="tab active" data-tab="portfolio" onclick="switchTab('portfolio')">
+                    <span class="tab-icon" style="color:var(--accent);"><i class="fas fa-file-alt"></i></span>
+                    <span>PORTFOLIO.md</span>
+                    <span class="tab-close"><i class="fas fa-times"></i></span>
                 </div>
-                <div class="timeline-item fade-up">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <h3>Senior International Data Management</h3>
-                        <div class="company">Ascend Money, Bangkok | Nov 2023 - Dec 2024</div>
-                        <p>Support International BI team (Southeast Asia). Generative AI projects including meeting summarization (Thai) and customer service voice transcription.</p>
+            </div>
+
+            <!-- Breadcrumb -->
+            <div class="breadcrumb" id="breadcrumb">
+                <i class="fas fa-folder-open" style="font-size:11px;color:var(--text-muted);"></i>
+                <span>chadchavan_portfolio</span>
+                <span class="sep">/</span>
+                <span style="color:var(--accent);">PORTFOLIO.md</span>
+            </div>
+
+            <!-- Split: Editor + Minimap -->
+            <div style="flex:1;display:flex;overflow:hidden;">
+                <div class="editor-content" id="editorContent">
+
+                    <!-- ===== PORTFOLIO.md ===== -->
+                    <div class="md-section active" id="sec-portfolio">
+                        <div class="md-title">
+                            <span class="emoji">&#127760;</span>
+                            Chadchavan <span style="color:var(--accent);">Portfolio</span>
+                        </div>
+                        <div class="md-title-sub">// Senior AI/ML Software Engineer &amp; Full-Stack Developer</div>
+
+                        <div class="md-h2">PROJECT OVERVIEW</div>
+                        <p class="md-p">A modular portfolio designed with structured <span class="md-code">AI context</span>, reusable <span class="md-code">skills</span>, and real-world engineering experience across healthcare, fintech, and marketing industries.</p>
+
+                        <div class="md-h2">KEY COMPONENTS</div>
+                        <table class="md-table">
+                            <tr><th>Module</th><th>Description</th></tr>
+                            <tr><td><span class="md-code">experience/</span></td><td>4+ years across Data Science, Data Engineering &amp; AI/ML</td></tr>
+                            <tr><td><span class="md-code">skills/</span></td><td>Python, SQL, LangChain, FastAPI, GCP, Docker &amp; more</td></tr>
+                            <tr><td><span class="md-code">projects/</span></td><td>RAG health records, GenAI apps, Forex LSTM, IoT systems</td></tr>
+                            <tr><td><span class="md-code">education/</span></td><td>MSc Autonomous Robotics (UK) + BA Computer Engineering</td></tr>
+                            <tr><td><span class="md-code">contact.yml</span></td><td>Email, phone, LinkedIn &amp; location</td></tr>
+                        </table>
+
+                        <div class="md-h2">BEST PRACTICES</div>
+                        <ul class="md-list">
+                            <li>Keep <span class="md-code">PORTFOLIO.md</span> focused and structured</li>
+                            <li>Use <span class="md-code">skills</span> for reusable AI workflows</li>
+                            <li>Use <span class="md-code">experience</span> for career history</li>
+                            <li>Document architecture decisions in <span class="md-code">projects/</span></li>
+                            <li>Maintain modular portfolio design</li>
+                        </ul>
+
+                        <div class="md-h2">QUICK STATS</div>
+                        <div style="display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 16px;">
+                            <span class="md-badge accent">5+ Years Exp.</span>
+                            <span class="md-badge blue">10+ Projects</span>
+                            <span class="md-badge green">2 Degrees</span>
+                            <span class="md-badge yellow">Bronze Medal AI</span>
+                        </div>
+
+                        <div class="md-h2">GETTING STARTED</div>
+                        <ul class="md-list">
+                            <li>Browse the <strong>file tree</strong> on the left</li>
+                            <li>Click files to open different sections</li>
+                            <li>Use the <strong>terminal</strong> below to ask my AI assistant</li>
+                            <li>Check <span class="md-code">skills/stack.json</span> for tech stack</li>
+                            <li>View <span class="md-code">experience/CAREER.md</span> for work history</li>
+                        </ul>
                     </div>
+
+                    <!-- ===== EXPERIENCE ===== -->
+                    <div class="md-section" id="sec-experience">
+                        <div class="md-title">
+                            <span class="emoji">&#128188;</span>
+                            Career <span style="color:var(--accent);">Path</span>
+                        </div>
+                        <div class="md-title-sub">// experience/CAREER.md</div>
+
+                        <div class="md-h2">WORK EXPERIENCE</div>
+                        <div style="margin-top:16px;">
+                            <div class="timeline-item">
+                                <div class="timeline-role">Senior AI/ML Software Engineer</div>
+                                <div class="timeline-company">Bon 8 Creative Co., Ltd. — Chiangmai</div>
+                                <div class="timeline-period">Dec 2024 – Present</div>
+                                <div class="timeline-desc">Full stack AI Application Development in healthcare and marketing. Data engineering, pipeline optimization, ETL processes, and PII governance compliance.</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-role">Senior International Data Management</div>
+                                <div class="timeline-company">Ascend Money — Bangkok</div>
+                                <div class="timeline-period">Nov 2023 – Dec 2024</div>
+                                <div class="timeline-desc">Support International BI team (Southeast Asia). Generative AI projects including meeting summarization (Thai) and customer service voice transcription.</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-role">Data Engineer</div>
+                                <div class="timeline-company">Hengleasing and Capital — Chiangmai</div>
+                                <div class="timeline-period">May 2022 – Oct 2023</div>
+                                <div class="timeline-desc">Data Engineering, ETL, Data Pipeline, BI. Maintain data processing with Jenkins, Airflow. Robot automation process for external data acquisition.</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-role">Data Scientist</div>
+                                <div class="timeline-company">Praram 9 Hospital — Bangkok</div>
+                                <div class="timeline-period">May 2021 – Feb 2022</div>
+                                <div class="timeline-desc">Virtual Hospital Hackathon staff, marketing data analytics, document management system, and survey system with AI as a service.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== SKILLS ===== -->
+                    <div class="md-section" id="sec-skills">
+                        <div class="md-title">
+                            <span class="emoji">&#128736;</span>
+                            Tech <span style="color:var(--accent);">Stack</span>
+                        </div>
+                        <div class="md-title-sub">// skills/stack.json</div>
+
+                        <div class="md-h2">PROGRAMMING</div>
+                        <div style="margin:8px 0 20px;"><span class="md-badge accent">Python</span><span class="md-badge accent">SQL</span><span class="md-badge accent">JavaScript</span><span class="md-badge accent">PHP</span><span class="md-badge">HTML</span><span class="md-badge">CSS</span><span class="md-badge">Linux CLI</span></div>
+
+                        <div class="md-h2">AI/ML &amp; FULL-STACK</div>
+                        <div style="margin:8px 0 20px;"><span class="md-badge blue">Keras</span><span class="md-badge blue">Scikit-learn</span><span class="md-badge blue">TensorFlow</span><span class="md-badge blue">PyTorch</span><span class="md-badge blue">Langchain</span><span class="md-badge blue">OpenAI</span><span class="md-badge blue">FastAPI</span><span class="md-badge blue">Vue.js</span><span class="md-badge blue">React</span><span class="md-badge blue">LINE LIFF</span></div>
+
+                        <div class="md-h2">DATA ENGINEERING &amp; CLOUD</div>
+                        <div style="margin:8px 0 20px;"><span class="md-badge green">GBQ</span><span class="md-badge green">GCP</span><span class="md-badge green">AWS Elastic Beanstalk</span><span class="md-badge green">Pentaho</span><span class="md-badge green">Airflow</span><span class="md-badge green">Jenkins</span><span class="md-badge green">MySQL</span><span class="md-badge green">CouchDB</span></div>
+
+                        <div class="md-h2">VISUALIZATION &amp; TOOLS</div>
+                        <div style="margin:8px 0 20px;"><span class="md-badge yellow">Tableau</span><span class="md-badge yellow">Looker Studio</span><span class="md-badge yellow">Metabase</span><span class="md-badge yellow">Git</span><span class="md-badge yellow">Docker</span><span class="md-badge yellow">Microsoft Office</span></div>
+                    </div>
+
+                    <!-- ===== PROJECTS ===== -->
+                    <div class="md-section" id="sec-projects">
+                        <div class="md-title">
+                            <span class="emoji">&#128640;</span>
+                            Featured <span style="color:var(--accent);">Projects</span>
+                        </div>
+                        <div class="md-title-sub">// projects/README.md</div>
+
+                        <div class="md-h2">PROJECT SHOWCASE</div>
+                        <div class="project-cards">
+                            <div class="project-card">
+                                <h4><i class="fas fa-heartbeat" style="color:var(--accent);margin-right:6px;"></i>Personal Health Records with LLMs</h4>
+                                <p>AI-powered personal health record system using RAG (Retrieval-Augmented Generation) for intelligent health data querying and management.</p>
+                                <div class="tags"><span class="md-badge blue">Langchain</span><span class="md-badge blue">FastAPI</span><span class="md-badge blue">Vue.js</span><span class="md-badge blue">RAG</span></div>
+                            </div>
+                            <div class="project-card">
+                                <h4><i class="fas fa-robot" style="color:var(--accent);margin-right:6px;"></i>GenAI Web Applications</h4>
+                                <p>Web applications integrated with Generative AI (LLMs) for healthcare and marketing industries, including meeting summarization and voice transcription.</p>
+                                <div class="tags"><span class="md-badge blue">OpenAI</span><span class="md-badge blue">Langchain</span><span class="md-badge blue">FastAPI</span><span class="md-badge blue">Python</span></div>
+                            </div>
+                            <div class="project-card">
+                                <h4><i class="fas fa-chart-line" style="color:var(--accent);margin-right:6px;"></i>Forex Robot Trading + LSTM</h4>
+                                <p>Automated trading bot (EA) for MT4 platform combined with LSTM deep learning model for currency exchange rate prediction.</p>
+                                <div class="tags"><span class="md-badge accent">Python</span><span class="md-badge accent">LSTM</span><span class="md-badge accent">Keras</span><span class="md-badge accent">MT4</span></div>
+                            </div>
+                            <div class="project-card">
+                                <h4><i class="fas fa-water" style="color:var(--accent);margin-right:6px;"></i>IoT Water Quality Measurement</h4>
+                                <p>IoT web application and embedded system for real-time water quality measurement and monitoring dashboard.</p>
+                                <div class="tags"><span class="md-badge green">IoT</span><span class="md-badge green">Embedded</span><span class="md-badge green">Web App</span><span class="md-badge green">Sensors</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== EDUCATION ===== -->
+                    <div class="md-section" id="sec-education">
+                        <div class="md-title">
+                            <span class="emoji">&#127891;</span>
+                            Education <span style="color:var(--accent);">Background</span>
+                        </div>
+                        <div class="md-title-sub">// education/degrees.md</div>
+
+                        <div class="md-h2">DEGREES</div>
+                        <table class="md-table">
+                            <tr><th>Degree</th><th>Institution</th><th>Year</th></tr>
+                            <tr><td><strong>MSc Autonomous Robotics</strong></td><td>University of Strathclyde, Glasgow, UK</td><td><span class="md-code">2018-2019</span></td></tr>
+                            <tr><td><strong>BA Computer Engineering</strong></td><td>Rajamangala University of Technology Lanna (RMUTL)</td><td><span class="md-code">2011-2014</span></td></tr>
+                        </table>
+
+                        <div class="md-h2">ACHIEVEMENTS</div>
+                        <div class="md-blockquote">
+                            <strong>&#127942; Bronze Medal</strong> — Super AI Engineer Season 3 (AIAT Thailand)<br>
+                            National-level AI competition recognizing excellence in AI engineering.
+                        </div>
+                    </div>
+
+                    <!-- ===== CONTACT ===== -->
+                    <div class="md-section" id="sec-contact">
+                        <div class="md-title">
+                            <span class="emoji">&#128231;</span>
+                            Contact <span style="color:var(--accent);">Info</span>
+                        </div>
+                        <div class="md-title-sub">// contact.yml</div>
+
+                        <div style="background:#F7F7F7;border:1px solid var(--border);border-radius:6px;padding:20px 24px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:2;margin-top:16px;">
+                            <div style="color:#999;"># contact.yml</div>
+                            <div><span style="color:#CE9178;">name</span>: <span style="color:#333;">Chadchavan Rattanasopa</span></div>
+                            <div><span style="color:#CE9178;">name_th</span>: <span style="color:#333;">ชัชวาล รัตนโสภา</span></div>
+                            <div><span style="color:#CE9178;">role</span>: <span style="color:#333;">Senior AI/ML Software Engineer</span></div>
+                            <div><span style="color:#CE9178;">company</span>: <span style="color:#333;">Bon 8 Creative Co., Ltd.</span></div>
+                            <div><span style="color:#CE9178;">email</span>: <a href="mailto:chad.rattanasopa@gmail.com" class="md-link">chad.rattanasopa@gmail.com</a></div>
+                            <div><span style="color:#CE9178;">phone</span>: <span style="color:#333;">+66 80-394-8677</span></div>
+                            <div><span style="color:#CE9178;">location</span>: <span style="color:#333;">Chiangmai / Bangkok, Thailand</span></div>
+                            <div><span style="color:#CE9178;">github</span>: <a href="https://github.com/chad-ra" target="_blank" class="md-link">github.com/chad-ra</a></div>
+                            <div><span style="color:#CE9178;">linkedin</span>: <a href="https://www.linkedin.com/in/chadchavan-rattanasopa-53982a13a/" target="_blank" class="md-link">linkedin.com/in/chadchavan-rattanasopa</a></div>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="timeline-item fade-up">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <h3>Data Engineer</h3>
-                        <div class="company">Hengleasing and Capital, Chiangmai | May 2022 - Oct 2023</div>
-                        <p>Data Engineering, ETL, Data Pipeline, BI. Maintain data processing with Jenkins, Airflow. Robot automation process for external data acquisition.</p>
-                    </div>
+                <div class="minimap" id="minimap"></div>
+            </div>
+
+            <!-- Terminal / AI Chat -->
+            <div class="terminal-panel" id="terminalPanel">
+                <div class="terminal-tabs">
+                    <div class="terminal-tab active"><i class="fas fa-brain"></i> AI ASSISTANT</div>
+                    <div class="terminal-tab"><i class="fas fa-terminal"></i> TERMINAL</div>
                 </div>
-                <div class="timeline-item fade-up">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <h3>Data Scientist</h3>
-                        <div class="company">Praram 9 Hospital, Bangkok| May 2021 - Feb 2022</div>
-                        <p>Virtual Hospital Hackathon staff, marketing data analytics, document management system, and survey system with AI as a service.</p>
-                    </div>
+                <div class="terminal-body" id="terminalBody">
+                    <div class="term-line"><span class="term-prompt">chadchavan@portfolio</span> <span class="term-cmd">~ $</span> <span class="term-info">./start-assistant.sh</span></div>
+                    <div class="term-line"><span class="term-output">&#9889; AI Assistant loaded. Ask me anything about Chadchavan's skills, experience, projects, or education.</span></div>
+                    <div class="term-line"><span class="term-output">   Type your question below and press Enter.</span></div>
+                    <div class="term-line">&nbsp;</div>
+                </div>
+                <div class="terminal-input-area">
+                    <span class="prompt-symbol">&#10095;</span>
+                    <input type="text" class="terminal-input" id="chatInput" placeholder="Ask about Chadchavan..." onkeypress="if(event.key==='Enter')sendChat()">
+                    <button class="terminal-send" onclick="sendChat()"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section id="projects">
-        <div class="container">
-            <span class="section-label">My Work</span>
-            <h2 class="section-title">Featured <span style="color: var(--accent);">Projects</span></h2>
-            <div class="projects-grid">
-                <div class="project-card fade-up">
-                    <div class="project-banner p1"><i class="fas fa-heartbeat"></i></div>
-                    <div class="project-body">
-                        <h3>Personal Health Records with LLMs</h3>
-                        <p>AI-powered personal health record system using RAG (Retrieval-Augmented Generation) for intelligent health data querying and management.</p>
-                        <div class="project-tags"><span>Langchain</span><span>FastAPI</span><span>Vue.js</span><span>RAG</span></div>
-                        <div class="project-type"><i class="fas fa-flask"></i> Research Project</div>
-                    </div>
-                </div>
-                <div class="project-card fade-up">
-                    <div class="project-banner p2"><i class="fas fa-robot"></i></div>
-                    <div class="project-body">
-                        <h3>GenAI Web Applications</h3>
-                        <p>Web applications integrated with Generative AI (LLMs) for healthcare and marketing industries, including meeting summarization and voice transcription.</p>
-                        <div class="project-tags"><span>OpenAI</span><span>Langchain</span><span>FastAPI</span><span>Python</span></div>
-                        <div class="project-type"><i class="fas fa-building"></i> Enterprise Project</div>
-                    </div>
-                </div>
-                <div class="project-card fade-up">
-                    <div class="project-banner p3"><i class="fas fa-chart-line"></i></div>
-                    <div class="project-body">
-                        <h3>Forex Robot Trading + LSTM</h3>
-                        <p>Automated trading bot (EA) for MT4 platform combined with LSTM deep learning model for currency exchange rate prediction.</p>
-                        <div class="project-tags"><span>Python</span><span>LSTM</span><span>Keras</span><span>MT4</span></div>
-                        <div class="project-type"><i class="fas fa-user"></i> Personal Project</div>
-                    </div>
-                </div>
-                <div class="project-card fade-up">
-                    <div class="project-banner p4"><i class="fas fa-water"></i></div>
-                    <div class="project-body">
-                        <h3>IoT Water Quality Measurement</h3>
-                        <p>IoT web application and embedded system for real-time water quality measurement and monitoring dashboard.</p>
-                        <div class="project-tags"><span>IoT</span><span>Embedded</span><span>Web App</span><span>Sensors</span></div>
-                        <div class="project-type"><i class="fas fa-user"></i> Personal Project</div>
-                    </div>
-                </div>
-            </div>
+    <!-- Status Bar -->
+    <div class="statusbar">
+        <div class="left">
+            <span class="status-item"><i class="fas fa-code-branch"></i> main</span>
+            <span class="status-item"><i class="fas fa-check-circle"></i> 0 errors</span>
         </div>
-    </section>
-
-    <section id="contact">
-        <div class="container">
-            <span class="section-label">Get in Touch</span>
-            <h2 class="section-title">Contact <span style="color: var(--accent);">Me</span></h2>
-            <div class="contact-grid">
-                <div class="contact-info fade-up">
-                    <h3>Let's build something amazing together</h3>
-                    <p>Have a project in mind or want to collaborate? Feel free to reach out. I'm always open to discussing new opportunities.</p>
-                    <div class="contact-item">
-                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                        <div><h4>Email</h4><p>chad.rattanasopa@gmail.com</p></div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
-                        <div><h4>Phone</h4><p>+66 80-394-8677</p></div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <div><h4>Location</h4><p>Chiangmai / Bangkok, Thailand</p></div>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://github.com/chad-ra" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/chadchavan-rattanasopa-53982a13a/" target="_blank" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <form class="contact-form fade-up" onsubmit="handleSubmit(event)">
-                    <div class="form-row">
-                        <div class="form-group"><label>Name</label><input type="text" placeholder="Your name"></div>
-                        <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com"></div>
-                    </div>
-                    <div class="form-group"><label>Subject</label><input type="text" placeholder="What's this about?"></div>
-                    <div class="form-group"><label>Message</label><textarea placeholder="Tell me about your project..."></textarea></div>
-                    <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> Send Message</button>
-                </form>
-            </div>
+        <div class="right">
+            <span class="status-item">UTF-8</span>
+            <span class="status-item">Markdown</span>
+            <span class="status-item"><i class="fas fa-bell"></i></span>
         </div>
-    </section>
-
-    <section id="chat">
-        <div class="container">
-            <span class="section-label">AI Assistant</span>
-            <h2 class="section-title">Chat with <span style="color: var(--accent);">My AI</span></h2>
-            <div class="chat-container">
-                <div class="chat-header">
-                    <div class="chat-header-icon"><i class="fas fa-brain"></i></div>
-                    <div>
-                        <h3>Chadchavan's AI Assistant</h3>
-                        <div class="chat-status"><span class="chat-status-dot"></span> Online — Ask me anything about Chadchavan</div>
-                    </div>
-                </div>
-                <div class="chat-messages" id="chatMessages">
-                    <div class="chat-msg bot">
-                        <div class="chat-msg-avatar"><i class="fas fa-brain"></i></div>
-                        <div class="chat-msg-bubble"><p>Hi! I'm Chadchavan's AI assistant. Ask me anything about his skills, experience, projects, or education. How can I help you?</p></div>
-                    </div>
-                </div>
-                <div class="chat-suggestions" id="chatSuggestions">
-                    <span class="chat-suggestion" onclick="askSuggestion(this)">What are his skills?</span>
-                    <span class="chat-suggestion" onclick="askSuggestion(this)">Tell me about his projects</span>
-                    <span class="chat-suggestion" onclick="askSuggestion(this)">Where did he work?</span>
-                    <span class="chat-suggestion" onclick="askSuggestion(this)">Education background?</span>
-                </div>
-                <div class="chat-input-area">
-                    <input type="text" class="chat-input" id="chatInput" placeholder="Ask about Chadchavan..." onkeypress="if(event.key==='Enter')sendChat()">
-                    <button class="chat-send" id="chatSendBtn" onclick="sendChat()"><i class="fas fa-paper-plane"></i></button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 Chadchavan Rattanasopa. Built with <span class="heart">&hearts;</span> and clean code. 禅</p>
-    </footer>
+    </div>
 
     <script>
-        // Navbar scroll
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
+        // === Tab & Navigation System ===
+        const tabConfig = {
+            portfolio: { name: 'PORTFOLIO.md', icon: 'fas fa-file-alt', color: 'var(--accent)', breadcrumb: 'PORTFOLIO.md' },
+            experience: { name: 'CAREER.md', icon: 'fas fa-file-alt', color: 'var(--accent)', breadcrumb: 'experience / CAREER.md' },
+            skills: { name: 'stack.json', icon: 'fas fa-file-code', color: '#B8860B', breadcrumb: 'skills / stack.json' },
+            projects: { name: 'README.md', icon: 'fas fa-file-alt', color: 'var(--accent)', breadcrumb: 'projects / README.md' },
+            education: { name: 'degrees.md', icon: 'fas fa-file-alt', color: 'var(--accent)', breadcrumb: 'education / degrees.md' },
+            contact: { name: 'contact.yml', icon: 'fas fa-file-code', color: '#CB171E', breadcrumb: 'contact.yml' }
+        };
 
-        // Hamburger
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('open');
-            const icon = hamburger.querySelector('i');
-            icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times');
-        });
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('open');
-                const icon = hamburger.querySelector('i');
-                icon.classList.add('fa-bars'); icon.classList.remove('fa-times');
-            });
-        });
+        let openTabs = ['portfolio'];
+        let activeTab = 'portfolio';
 
-        // Active nav
-        const sections = document.querySelectorAll('section[id]');
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY + 100;
-            sections.forEach(section => {
-                const top = section.offsetTop, height = section.offsetHeight, id = section.getAttribute('id');
-                const link = document.querySelector(`.nav-links a[href="#${id}"]`);
-                if (link) link.classList.toggle('active', scrollY >= top && scrollY < top + height);
-            });
-        });
-
-        // Typing effect
-        const roles = ['Senior AI/ML Engineer', 'Full-Stack Developer', 'Data Engineer', 'Problem Solver'];
-        let roleIndex = 0, charIndex = 0, isDeleting = false;
-        function typeEffect() {
-            const current = roles[roleIndex];
-            const typingEl = document.getElementById('typingText');
-            if (!isDeleting) {
-                typingEl.textContent = current.substring(0, charIndex + 1);
-                charIndex++;
-                if (charIndex === current.length) { setTimeout(() => { isDeleting = true; typeEffect(); }, 2000); return; }
-            } else {
-                typingEl.textContent = current.substring(0, charIndex - 1);
-                charIndex--;
-                if (charIndex === 0) { isDeleting = false; roleIndex = (roleIndex + 1) % roles.length; }
+        function openTab(tabId, treeEl) {
+            if (!openTabs.includes(tabId)) openTabs.push(tabId);
+            switchTab(tabId);
+            // Update tree active
+            document.querySelectorAll('.tree-item').forEach(el => el.classList.remove('active'));
+            if (treeEl) treeEl.classList.add('active');
+            renderTabs();
+            // Open parent folder
+            if (treeEl) {
+                const parent = treeEl.previousElementSibling;
+                if (parent && parent.classList.contains('tree-children')) {
+                    parent.classList.add('open');
+                }
             }
-            setTimeout(typeEffect, isDeleting ? 40 : 80);
-        }
-        typeEffect();
-
-        // Form submit
-        function handleSubmit(e) {
-            e.preventDefault();
-            const btn = e.target.querySelector('button[type="submit"]');
-            btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-            btn.style.background = '#10b981';
-            btn.style.color = 'white';
-            setTimeout(() => { btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message'; btn.style.background = ''; btn.style.color = ''; e.target.reset(); }, 3000);
         }
 
-        // ===== AI Chat Section (Smart Local Chatbot) =====
-        const chatMessages = document.getElementById('chatMessages');
-        const chatInput = document.getElementById('chatInput');
-        const chatSendBtn = document.getElementById('chatSendBtn');
-        const chatSuggestions = document.getElementById('chatSuggestions');
+        function switchTab(tabId) {
+            activeTab = tabId;
+            document.querySelectorAll('.md-section').forEach(s => s.classList.remove('active'));
+            const sec = document.getElementById('sec-' + tabId);
+            if (sec) sec.classList.add('active');
+            // Update tree
+            document.querySelectorAll('.tree-item[data-tab]').forEach(el => {
+                el.classList.toggle('active', el.dataset.tab === tabId);
+            });
+            // Breadcrumb
+            const cfg = tabConfig[tabId];
+            if (cfg) {
+                const parts = cfg.breadcrumb.split(' / ');
+                let html = '<i class="fas fa-folder-open" style="font-size:11px;color:var(--text-muted);"></i> <span>chadchavan_portfolio</span>';
+                parts.forEach(p => {
+                    html += ' <span class="sep">/</span> <span style="color:var(--accent);">' + p + '</span>';
+                });
+                document.getElementById('breadcrumb').innerHTML = html;
+            }
+            renderTabs();
+            document.getElementById('editorContent').scrollTop = 0;
+        }
 
+        function renderTabs() {
+            const bar = document.getElementById('tabBar');
+            bar.innerHTML = '';
+            openTabs.forEach(id => {
+                const cfg = tabConfig[id];
+                if (!cfg) return;
+                const t = document.createElement('div');
+                t.className = 'tab' + (id === activeTab ? ' active' : '');
+                t.dataset.tab = id;
+                t.onclick = () => switchTab(id);
+                t.innerHTML = `<span class="tab-icon" style="color:${cfg.color};"><i class="${cfg.icon}"></i></span><span>${cfg.name}</span><span class="tab-close" onclick="event.stopPropagation();closeTab('${id}')"><i class="fas fa-times"></i></span>`;
+                bar.appendChild(t);
+            });
+        }
+
+        function closeTab(tabId) {
+            if (openTabs.length <= 1) return;
+            openTabs = openTabs.filter(t => t !== tabId);
+            if (activeTab === tabId) switchTab(openTabs[openTabs.length - 1]);
+            renderTabs();
+        }
+
+        function toggleFolder(el) {
+            const chevron = el.querySelector('.chevron');
+            const children = el.nextElementSibling;
+            if (children && children.classList.contains('tree-children')) {
+                children.classList.toggle('open');
+                if (chevron) chevron.classList.toggle('open');
+                // Toggle folder icon
+                const folderIcon = el.querySelector('.icon.folder i');
+                if (folderIcon) {
+                    folderIcon.className = children.classList.contains('open') ? 'fas fa-folder-open' : 'fas fa-folder';
+                }
+            }
+        }
+
+        function toggleSidebar() {
+            const sb = document.getElementById('sidebar');
+            if (window.innerWidth <= 768) {
+                sb.classList.toggle('mobile-open');
+            }
+        }
+
+        // === AI Chat (Terminal) ===
         const cvData = {
             name: 'Chadchavan Rattanasopa',
             nameTh: 'ชัชวาล รัตนโสภา',
@@ -1421,145 +1099,75 @@
         function getResponse(input) {
             const q = input.toLowerCase();
             const th = detectThai(input);
-
-            // Skills
             if (q.match(/skill|ทักษะ|ความสามารถ|เก่ง|tech|stack|เทค/)) {
-                const allSkills = Object.values(cvData.skills).flat().join(', ');
                 return th
-                    ? `ทักษะหลักของ Chadchavan ครอบคลุมหลายด้าน:\n\n• Programming: ${cvData.skills.languages.join(', ')}\n• AI/ML: ${cvData.skills.aiml.join(', ')}\n• GenAI: ${cvData.skills.genai.join(', ')}\n• Web: ${cvData.skills.web.join(', ')}\n• Cloud: ${cvData.skills.cloud.join(', ')}\n• Data Engineering: ${cvData.skills.dataeng.join(', ')}\n• Visualization: ${cvData.skills.viz.join(', ')}\n• Database: ${cvData.skills.db.join(', ')}\n\nเขาเชี่ยวชาญทั้ง AI/ML, Full-Stack Development และ Data Engineering ครับ`
-                    : `Chadchavan has a diverse skill set:\n\n• Programming: ${cvData.skills.languages.join(', ')}\n• AI/ML: ${cvData.skills.aiml.join(', ')}\n• GenAI: ${cvData.skills.genai.join(', ')}\n• Web: ${cvData.skills.web.join(', ')}\n• Cloud: ${cvData.skills.cloud.join(', ')}\n• Data Engineering: ${cvData.skills.dataeng.join(', ')}\n• Visualization: ${cvData.skills.viz.join(', ')}\n• Database: ${cvData.skills.db.join(', ')}\n\nHe's proficient across AI/ML, Full-Stack Development, and Data Engineering!`;
+                    ? `ทักษะหลักของ Chadchavan:\n• Programming: ${cvData.skills.languages.join(', ')}\n• AI/ML: ${cvData.skills.aiml.join(', ')}\n• GenAI: ${cvData.skills.genai.join(', ')}\n• Web: ${cvData.skills.web.join(', ')}\n• Cloud: ${cvData.skills.cloud.join(', ')}`
+                    : `Chadchavan's tech stack:\n• Programming: ${cvData.skills.languages.join(', ')}\n• AI/ML: ${cvData.skills.aiml.join(', ')}\n• GenAI: ${cvData.skills.genai.join(', ')}\n• Web: ${cvData.skills.web.join(', ')}\n• Cloud: ${cvData.skills.cloud.join(', ')}`;
             }
-
-            // Experience / Work
-            if (q.match(/experience|work|job|ทำงาน|ประสบการณ์|บริษัท|company|career|อาชีพ|เคยทำ/)) {
-                const expList = cvData.experience.map(e => `• ${e.role} at ${e.company} (${e.period})\n  ${e.desc}`).join('\n\n');
-                return th
-                    ? `ประสบการณ์ทำงานของ Chadchavan:\n\n${expList}\n\nเขามีประสบการณ์กว่า 4 ปีในสาย Data & AI ครับ`
-                    : `Here's Chadchavan's work experience:\n\n${expList}\n\nHe has 4+ years of experience across Data Science, Data Engineering, and AI/ML.`;
+            if (q.match(/experience|work|job|ทำงาน|ประสบการณ์|บริษัท|company|career|อาชีพ/)) {
+                const list = cvData.experience.map(e => `• ${e.role} @ ${e.company} (${e.period})`).join('\n');
+                return th ? `ประสบการณ์ทำงาน:\n${list}` : `Work experience:\n${list}`;
             }
-
-            // Projects
             if (q.match(/project|โปรเจ|ผลงาน|portfolio|งาน/)) {
-                const projList = cvData.projects.map(p => `• ${p.name}: ${p.desc}`).join('\n');
-                return th
-                    ? `โปรเจกต์เด่นของ Chadchavan:\n\n${projList}\n\nเขาเน้นงาน AI/ML และ GenAI เป็นหลักครับ`
-                    : `Chadchavan's notable projects:\n\n${projList}\n\nHis work focuses on AI/ML and Generative AI applications.`;
+                const list = cvData.projects.map(p => `• ${p.name}: ${p.desc}`).join('\n');
+                return th ? `โปรเจกต์เด่น:\n${list}` : `Notable projects:\n${list}`;
             }
-
-            // Education
             if (q.match(/educat|study|school|university|degree|การศึกษา|เรียน|มหาวิทยาลัย|จบ|ปริญญา/)) {
-                const eduList = cvData.education.map(e => `• ${e.degree} - ${e.school} (${e.year})`).join('\n');
-                return th
-                    ? `การศึกษาของ Chadchavan:\n\n${eduList}\n\nเขาจบปริญญาโทด้าน Autonomous Robotics จากสกอตแลนด์ครับ`
-                    : `Chadchavan's education:\n\n${eduList}\n\nHe holds a Master's degree in Autonomous Robotics from Scotland!`;
+                const list = cvData.education.map(e => `• ${e.degree} - ${e.school} (${e.year})`).join('\n');
+                return th ? `การศึกษา:\n${list}` : `Education:\n${list}`;
             }
-
-            // Contact
-            if (q.match(/contact|email|phone|ติดต่อ|อีเมล|โทร|เบอร์|linkedin|hire|จ้าง/)) {
+            if (q.match(/contact|email|phone|ติดต่อ|อีเมล|โทร|linkedin|hire|จ้าง/)) {
                 return th
-                    ? `ช่องทางติดต่อ Chadchavan:\n\n• Email: ${cvData.email}\n• Phone: ${cvData.phone}\n• Location: ${cvData.location}\n• LinkedIn: ${cvData.linkedin}\n\nสามารถติดต่อได้เลยครับ!`
-                    : `You can reach Chadchavan through:\n\n• Email: ${cvData.email}\n• Phone: ${cvData.phone}\n• Location: ${cvData.location}\n• LinkedIn: ${cvData.linkedin}\n\nFeel free to get in touch!`;
+                    ? `ติดต่อ Chadchavan:\n• Email: ${cvData.email}\n• Phone: ${cvData.phone}\n• LinkedIn: ${cvData.linkedin}`
+                    : `Contact Chadchavan:\n• Email: ${cvData.email}\n• Phone: ${cvData.phone}\n• LinkedIn: ${cvData.linkedin}`;
             }
-
-            // Current role
-            if (q.match(/current|now|ตอนนี้|ปัจจุบัน|ทำอะไร|doing/)) {
-                return th
-                    ? `ปัจจุบัน Chadchavan ทำงานเป็น ${cvData.currentRole}\n\nเขาพัฒนา AI/ML models และสร้าง GenAI web applications ครับ`
-                    : `Chadchavan is currently working as ${cvData.currentRole}\n\nHe develops and deploys AI/ML models and builds GenAI web applications.`;
-            }
-
-            // Awards
-            if (q.match(/award|prize|รางวัล|achieve|medal|เหรียญ/)) {
-                return th
-                    ? `รางวัลของ Chadchavan:\n\n• ${cvData.awards}\n\nเป็นการแข่งขัน AI ระดับประเทศของไทยครับ`
-                    : `Chadchavan's achievements:\n\n• ${cvData.awards}\n\nThis is a national-level AI competition in Thailand!`;
-            }
-
-            // Who is / about
             if (q.match(/who|about|เกี่ยวกับ|ใคร|แนะนำ|tell me|introduce|คือใคร/)) {
                 return th
-                    ? `Chadchavan Rattanasopa (${cvData.nameTh}) เป็น Senior AI/ML Software Engineer ที่ Bon 8 Creative จ.เชียงใหม่/กรุงเทพ ประเทศไทย\n\nเขาจบ MSc Autonomous Robotics จาก University of Strathclyde ประเทศสกอตแลนด์ และมีประสบการณ์กว่า 4 ปี ในสาย Data Science, Data Engineering และ AI/ML\n\nเขาเคยได้รับรางวัลเหรียญทองแดงจากการแข่งขัน Super AI Engineer Season 3 ครับ`
-                    : `Chadchavan Rattanasopa is a Senior AI/ML Software Engineer at Bon 8 Creative, based in Chiangmai/Bangkok, Thailand.\n\nHe holds an MSc in Autonomous Robotics from the University of Strathclyde, Scotland, and has 4+ years of experience in Data Science, Data Engineering, and AI/ML.\n\nHe won a Bronze Medal at the Super AI Engineer Season 3 competition in Thailand.`;
+                    ? `Chadchavan Rattanasopa (${cvData.nameTh}) เป็น Senior AI/ML Software Engineer ที่ Bon 8 Creative จ.เชียงใหม่ จบ MSc Autonomous Robotics จาก University of Strathclyde สกอตแลนด์ มีประสบการณ์ 4+ ปีใน Data & AI ครับ`
+                    : `Chadchavan Rattanasopa is a Senior AI/ML Software Engineer at Bon 8 Creative, based in Thailand. He holds an MSc in Autonomous Robotics from the University of Strathclyde, Scotland, with 4+ years of experience in Data Science, Data Engineering, and AI/ML.`;
             }
-
-            // Hello / greetings
-            if (q.match(/^(hi|hello|hey|สวัสดี|หวัดดี|ดี|yo|sup)/)) {
+            if (q.match(/^(hi|hello|hey|สวัสดี|หวัด|ดี|yo|sup)/)) {
                 return th
-                    ? `สวัสดีครับ! ผมเป็น AI Assistant ของ Chadchavan ยินดีตอบคำถามเกี่ยวกับทักษะ ประสบการณ์ โปรเจคต์ หรือการศึกษาของเขาครับ ถามได้เลย!`
-                    : `Hello! I'm Chadchavan's AI assistant. I'd be happy to answer questions about his skills, experience, projects, or education. What would you like to know?`;
+                    ? `สวัสดีครับ! ผมเป็น AI Assistant ของ Chadchavan ถามได้เลยครับ เช่น skills, experience, projects`
+                    : `Hello! I'm Chadchavan's AI assistant. Ask me about his skills, experience, projects, or education!`;
             }
-
-            // Python / AI specific
             if (q.match(/python|ai|machine learning|deep learning|ml/i)) {
                 return th
-                    ? `Chadchavan เชี่ยวชาญด้าน AI/ML มาก! เขาใช้ Python เป็นภาษาหลัก พร้อมกับ frameworks อย่าง TensorFlow, PyTorch, Keras และ Scikit-learn\n\nในด้าน GenAI เขาทำงานกับ Langchain, OpenAI API และ RAG systems\n\nปัจจุบันเขาสร้าง AI-powered web applications ที่ Bon 8 Creative ครับ`
-                    : `Chadchavan is highly skilled in AI/ML! He uses Python as his primary language along with frameworks like TensorFlow, PyTorch, Keras, and Scikit-learn.\n\nFor GenAI, he works with Langchain, OpenAI API, and RAG systems.\n\nCurrently, he builds AI-powered web applications at Bon 8 Creative.`;
+                    ? `Chadchavan เชี่ยวชาญด้าน AI/ML มาก ใช้ Python เป็นหลัก พร้อม TensorFlow, PyTorch, Keras และ Langchain, OpenAI API, RAG systems ครับ`
+                    : `Chadchavan is highly skilled in AI/ML! He uses Python with TensorFlow, PyTorch, Keras, and works with Langchain, OpenAI API, and RAG systems.`;
             }
-
-            // Default / fallback
+            if (q.match(/award|prize|รางวัล|achieve|medal|เหรียญ/)) {
+                return th
+                    ? `รางวัล: ${cvData.awards} — การแข่งขัน AI ระดับประเทศครับ`
+                    : `Achievement: ${cvData.awards} — A national-level AI competition in Thailand!`;
+            }
             return th
-                ? `ขอบคุณสำหรับคำถามครับ! ผมสามารถตอบเกี่ยวกับ Chadchavan ได้ในหัวข้อต่อไปนี้:\n\n• ทักษะและเทคโนโลยี\n• ประสบการณ์ทำงาน\n• โปรเจคตํ\n• การศึกษา\n• รางวัล\n• ช่องทางติดต่อ\n\nลองถามดูได้เลยครับ!`
-                : `Thanks for your question! I can help you learn about Chadchavan in these areas:\n\n• Skills & Technologies\n• Work Experience\n• Projects\n• Education\n• Awards\n• Contact Information\n\nFeel free to ask about any of these!`;
+                ? `ขอบคุณสำหรับคำถามครับ! ลองถามเกี่ยวกับ: skills, experience, projects, education, contact ได้เลยครับ`
+                : `Thanks for your question! Try asking about: skills, experience, projects, education, contact, or who is Chadchavan.`;
         }
 
-        function addMessage(text, sender) {
-            const msgDiv = document.createElement('div');
-            msgDiv.className = 'chat-msg ' + sender;
-            const avatar = document.createElement('div');
-            avatar.className = 'chat-msg-avatar';
-            avatar.innerHTML = sender === 'bot' ? '<i class="fas fa-brain"></i>' : '<i class="fas fa-user"></i>';
-            const bubble = document.createElement('div');
-            bubble.className = 'chat-msg-bubble';
-            bubble.innerHTML = '<p>' + text.replace(/\n/g, '<br>') + '</p>';
-            msgDiv.appendChild(avatar);
-            msgDiv.appendChild(bubble);
-            chatMessages.appendChild(msgDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            return msgDiv;
-        }
-
-        function showTyping() {
-            const msgDiv = document.createElement('div');
-            msgDiv.className = 'chat-msg bot';
-            msgDiv.id = 'typingIndicator';
-            msgDiv.innerHTML = '<div class="chat-msg-avatar"><i class="fas fa-brain"></i></div><div class="chat-msg-bubble"><div class="chat-typing"><span></span><span></span><span></span></div></div>';
-            chatMessages.appendChild(msgDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        function removeTyping() {
-            const el = document.getElementById('typingIndicator');
-            if (el) el.remove();
-        }
-
-        async function sendChat() {
-            const text = chatInput.value.trim();
+        function sendChat() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
             if (!text) return;
-
-            chatInput.value = '';
-            chatSuggestions.style.display = 'none';
-            chatSendBtn.disabled = true;
-            chatInput.disabled = true;
-
-            addMessage(text, 'user');
-            showTyping();
-
-            // Simulate typing delay for natural feel
-            await new Promise(r => setTimeout(r, 600 + Math.random() * 800));
-
-            removeTyping();
+            input.value = '';
+            const body = document.getElementById('terminalBody');
+            body.innerHTML += `<div class="term-line"><span class="term-prompt">you</span> <span class="term-cmd">~ $</span> ${escapeHtml(text)}</div>`;
             const reply = getResponse(text);
-            addMessage(reply, 'bot');
-
-            chatSendBtn.disabled = false;
-            chatInput.disabled = false;
-            chatInput.focus();
+            const lines = reply.split('\n');
+            lines.forEach(line => {
+                body.innerHTML += `<div class="term-line"><span class="term-accent">${escapeHtml(line)}</span></div>`;
+            });
+            body.innerHTML += `<div class="term-line">&nbsp;</div>`;
+            body.scrollTop = body.scrollHeight;
         }
 
-        function askSuggestion(el) {
-            chatInput.value = el.textContent;
-            sendChat();
+        function escapeHtml(t) {
+            return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
         }
+
+        // Init
+        renderTabs();
     </script>
 </body>
 </html>
